@@ -1,1 +1,1 @@
-# qwe
+# React Redux pizza site
