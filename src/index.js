@@ -12,10 +12,6 @@ import './styles/constructor.css';
 import './styles/header.css';
 import './styles/main.css';
 
-
-
-
-
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 render(

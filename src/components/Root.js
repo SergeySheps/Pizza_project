@@ -12,7 +12,6 @@ const Root = ({ store }) => (
         <Route path="/registration" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/" component={MainPage} />
-        
       </Switch>
     </Router>
   </Provider>

@@ -2,29 +2,32 @@ import React from 'react';
 import { connect } from "react-redux";
 import PizzaConstructor from './pizzaConstructor/PizzaConstructor';
 import { pizzaActions } from '../../actions/pizzaActions'
-import { pizzaConstants } from '../../constants/pizzaConstants'
+import { pizzaConstants } from '../../actions/types'
 
 const Main = (props) => {
-  const {createYourself, isCreateYourself } = props;
+  const { createYourself, isCreateYourself, prices } = props;
   return (
     <main>
-      <button className="create-pizza-yourself_button" onClick={() => createYourself()}>Create your pizza yourself</button>
-      {isCreateYourself && <PizzaConstructor />}
+      {!isCreateYourself ? <button className="create-pizza-yourself_button" onClick={() => createYourself()}>Create your pizza yourself</button> :
+        <PizzaConstructor prices={prices} />}
     </main>
   )
 }
 
 const mapStateToProps = (state) => {
-  const { isCreateYourself } = state.pizza;
+  const { isCreateYourself, prices } = state.pizza;
   return {
-      isCreateYourself
+    isCreateYourself,
+    prices
   }
 }
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    createYourself: () => dispatch(pizzaActions.createPizza(pizzaConstants.PIZZA_CREATE_YOURSELF))
+    createYourself: () => dispatch(pizzaActions.createPizzaPrice({ pizza_size: 22 }))
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
 
 

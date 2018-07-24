@@ -45,21 +45,16 @@ function register(user) {
 
 function handleResponse(response) {
     return response.text().then(text => {
-        console.log(text, "text");
         const data = text && JSON.parse(text);
-        console.log(data, "data");
-        console.log(response, "response");
         if (!response.ok) {
             // if (response.status === 401) {
             //     // auto logout if 401 response returned from api
             //     logout();
             //     location.reload(true);
             // }
-            console.log("response are not Ok");
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         }
-        console.log("WTF");
         return data;
     },(error)=>{
         console.log(error)

@@ -1,4 +1,0 @@
-export const pizzaConstants = {
-    PIZZA_CREATE: "PIZZA_CREATE",
-    PIZZA_CREATE_YOURSELF: "PIZZA_CREATE_YOURSELF"
-}

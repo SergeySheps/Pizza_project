@@ -2,32 +2,26 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { alertActions } from '../actions/alertActions'
-
 import { userActions } from '../actions/userActions';
-import { alertConstants } from '../constants/alertConstants';
 
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
-
-        // reset login status
-        // this.props.dispatch(userActions.logout());
-
         this.state = {
             email: '',
             password: '',
-            submitted: false
+            isSubmitted: false
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    componentDidMount(){
-        const {dispatch} = this.props;
+    componentDidMount() {
+        const { onClear } = this.props;
         setTimeout(() => {
-            dispatch(alertActions.clear());
+            onClear();
         }, 5000);
-        
+
     }
     handleChange(e) {
         const { name, value } = e.target;
@@ -36,22 +30,21 @@ class LoginPage extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
-        this.setState({ submitted: true });
+        this.setState({ isSubmitted: true });
         const { email, password } = this.state;
-        const { dispatch } = this.props;
+        const { onLogin } = this.props;
         if (email && password) {
-            dispatch(userActions.login({ email, password }));
+            onLogin({ email, password });
         }
     }
 
     render() {
-
         const { loggingIn, loggedIn, alert } = this.props;
-        const { email, password, submitted } = this.state;
+        const { email, password, isSubmitted } = this.state;      
         if (loggedIn) {
             return <Redirect to="/" />;
         }
+
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h2>Login</h2>
@@ -59,17 +52,17 @@ class LoginPage extends React.Component {
                     <div className={`alert ${alert.type}`}>{alert.message}</div>
                 }
                 <form name="form" onSubmit={this.handleSubmit}>
-                    <div className={'form-group' + (submitted && !email ? ' has-error' : '')}>
+                    <div className={'form-group' + (isSubmitted && !email ? ' has-error' : '')}>
                         <label htmlFor="email">Email</label>
                         <input type="email" className="form-control" name="email" onChange={this.handleChange} />
-                        {submitted && !email &&
+                        {isSubmitted && !email &&
                             <div className="help-block">Email is required</div>
                         }
                     </div>
-                    <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
+                    <div className={'form-group' + (isSubmitted && !password ? ' has-error' : '')}>
                         <label htmlFor="password">Password</label>
                         <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-                        {submitted && !password &&
+                        {isSubmitted && !password &&
                             <div className="help-block">Password is required</div>
                         }
                     </div>
@@ -87,7 +80,7 @@ class LoginPage extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     const { loggingIn, loggedIn } = state.login;
     const { alert } = state;
     return {
@@ -96,5 +89,11 @@ function mapStateToProps(state) {
         alert
     };
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onClear: () => dispatch(alertActions.clear()),
+        onLogin: (credo) => dispatch(userActions.login(credo)),      
+    }
+}
 
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps,mapDispatchToProps)(LoginPage);
