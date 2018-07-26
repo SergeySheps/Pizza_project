@@ -1,6 +1,5 @@
 const statusNames = {
-    InternalServerError: 500,
-    BadRequest: 400,
+  InternalServerError: 500,
+  BadRequest: 400,
 }
-module.exports = statusNames;
-
+module.exports = statusNames

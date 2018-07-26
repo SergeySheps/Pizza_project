@@ -1,10 +1,14 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { inputDateRange } from '../constants/constants'
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom'
 import { Button, Icon } from 'semantic-ui-react'
-import { renderTextInputField, renderCheckboxInputField, renderDateInputField } from './inputComponents/inputComponents'
-import "../styles/register.css"
+import {
+  renderTextInputField,
+  renderCheckboxInputField,
+  renderDateInputField,
+} from './inputComponents/inputComponents'
+import '../styles/register.css'
 
 const validate = values => {
   const errors = {}
@@ -45,24 +49,40 @@ const validate = values => {
 //     })
 // }
 
-const RegistrationForm = (props) => {
+const RegistrationForm = props => {
   const { handleSubmit, submitting } = props
   return (
     <form className="registration__form" onSubmit={handleSubmit}>
       <Link to="/" className="registration__link-to-home">
-        <Icon disabled name='arrow circle left' size='big' className="link-to-home_icon" />
+        <Icon disabled name="arrow circle left" size="big" className="link-to-home_icon" />
       </Link>
       <h2 className="registration-header-text">Register</h2>
       <Field name="firstName" type="text" component={renderTextInputField} label="First name" />
       <Field name="secondName" type="text" component={renderTextInputField} label="Second name" />
       <Field name="email" type="email" component={renderTextInputField} label="Email" />
       <Field name="password" type="password" component={renderTextInputField} label="Password" />
-      <Field name="confirmedPassword" type="password" component={renderTextInputField} label="Confirm Password" />
-      <Field name="birthday" type="date" component={renderDateInputField} label="Birthday"
-        min={inputDateRange.min} max={inputDateRange.max} />
+      <Field
+        name="confirmedPassword"
+        type="password"
+        component={renderTextInputField}
+        label="Confirm Password"
+      />
+      <Field
+        name="birthday"
+        type="date"
+        component={renderDateInputField}
+        label="Birthday"
+        min={inputDateRange.min}
+        max={inputDateRange.max}
+      />
       <Field name="isEmployee" component={renderCheckboxInputField} label="Are you our employee?" />
       <div className="registration__form-item registration__form-buttons">
-        <Button type="submit" disabled={submitting} primary className="registration__form-buttons-item">
+        <Button
+          type="submit"
+          disabled={submitting}
+          primary
+          className="registration__form-buttons-item"
+        >
           Sign-up
         </Button>
       </div>
