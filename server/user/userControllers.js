@@ -1,5 +1,5 @@
 const express = require('express')
-const statusNames = require('../helpers/statusNames')
+const statusCodes = require('../constants/constants')
 const userServices = require('./userServices')
 const router = express.Router()
 
@@ -14,7 +14,7 @@ function register(req, res) {
       res.json({})
     },
     error => {
-      res.status(statusNames.InternalServerError).json({ message: error.message })
+      res.status(statusCodes.InternalServerError).json({ message: error.message })
     },
   )
 }
@@ -24,10 +24,10 @@ function login(req, res) {
     user => {
       user
         ? res.json(user)
-        : res.status(statusNames.BadRequest).json({ message: 'Incorrect Email or password' })
+        : res.status(statusCodes.BadRequest).json({ message: 'Incorrect Email or password' })
     },
     error => {
-      res.status(statusNames.InternalServerError).json({ message: error.message })
+      res.status(statusCodes.InternalServerError).json({ message: error.message })
     },
   )
 }
