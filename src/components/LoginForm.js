@@ -1,12 +1,13 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { Redirect, Link } from 'react-router-dom'
-import { Button, Icon } from 'semantic-ui-react'
-import { renderСommonTextInput } from './inputComponents/inputComponents'
+import {Field, reduxForm} from 'redux-form'
+import {Redirect, Link} from 'react-router-dom'
+import {Button, Icon} from 'semantic-ui-react'
+import {renderСommonTextInput} from './inputComponents/inputComponents'
 import '../styles/login.css'
 
 const LoginForm = props => {
-  const { handleSubmit, submitting } = props
+  const {handleSubmit, submitting} = props
+
   return (
     <form className="login__form" onSubmit={handleSubmit}>
       <Link to="/" className="login__link-to-home">

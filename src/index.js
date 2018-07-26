@@ -1,9 +1,9 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
+import {render} from 'react-dom'
+import {createStore, applyMiddleware} from 'redux'
 import Root from './components'
 import rootReducer from './reducers'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import {composeWithDevTools} from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import 'semantic-ui-css/semantic.min.css'
 

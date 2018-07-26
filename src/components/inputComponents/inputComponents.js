@@ -29,6 +29,7 @@ export const renderTextInputField = props => {
 
 export const renderСommonTextInput = props => {
   const { input, label, type } = props
+
   return (
     <div className="login__form-item">
       <label className="login__form-item-label">{label}</label>
@@ -41,6 +42,7 @@ export const renderСommonTextInput = props => {
 
 export const renderCheckboxInputField = props => {
   const { input, label } = props
+
   return (
     <div className="registration__form-item">
       <Checkbox
@@ -54,6 +56,7 @@ export const renderCheckboxInputField = props => {
 
 export const renderDateInputField = props => {
   const { input, label, type, min, max } = props
+  
   return (
     <div className="registration__form-item">
       <label className="registration__form-item-label">{label}</label>

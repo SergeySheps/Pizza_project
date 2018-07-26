@@ -4,7 +4,7 @@ const userModel = require('../user/userModel')
 
 mongoose.connect(
   config.connectionDBString,
-  { useNewUrlParser: true },
+  {useNewUrlParser: true},
 )
 
 mongoose.Promise = global.Promise

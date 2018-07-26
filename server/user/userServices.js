@@ -2,6 +2,7 @@ const config = require('../config.json')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const db = require('../helpers/dbHelpers')
+const {saltRounds} = require('../constants/constants')
 const User = db.User
 
 module.exports = {
@@ -13,18 +14,18 @@ async function createAccount(userParam) {
   const user = new User(userParam)
 
   if (userParam.password) {
-    user.hashPassword = bcrypt.hashSync(userParam.password, 10)
+    user.hashPassword = bcrypt.hashSync(userParam.password, saltRounds)
   }
 
   return await user.save()
 }
 
-async function login({ email, password }) {
-  const user = await User.findOne({ email })
+async function login({email, password}) {
+  const user = await User.findOne({email})
 
   if (user && bcrypt.compareSync(password, user.hashPassword)) {
-    const { hashPassword, ...userData } = user.toObject()
-    const token = jwt.sign({ sub: user.id }, config.secretWord)
+    const {hashPassword, ...userData} = user.toObject()
+    const token = jwt.sign({sub: user.id}, config.secretWord)
 
     return {
       ...userData,

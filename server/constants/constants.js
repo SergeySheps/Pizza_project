@@ -3,4 +3,9 @@ const statusCodes = {
   BadRequest: 400,
 }
 
-module.exports = statusCodes
+const saltRounds = 10
+
+module.exports = {
+  statusCodes: statusCodes,
+  saltRounds: saltRounds,
+}

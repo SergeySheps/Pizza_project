@@ -1,8 +1,8 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { inputDateRange } from '../constants/constants'
-import { Redirect, Link } from 'react-router-dom'
-import { Button, Icon } from 'semantic-ui-react'
+import {Field, reduxForm} from 'redux-form'
+import {inputDateRange} from '../constants/constants'
+import {Redirect, Link} from 'react-router-dom'
+import {Button, Icon} from 'semantic-ui-react'
 import {
   renderTextInputField,
   renderCheckboxInputField,
@@ -12,6 +12,7 @@ import '../styles/register.css'
 
 const validate = values => {
   const errors = {}
+
   if (!values.firstName) {
     errors.firstName = 'Required'
   }
@@ -35,6 +36,7 @@ const validate = values => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
+
   return errors
 }
 
@@ -50,7 +52,8 @@ const validate = values => {
 // }
 
 const RegistrationForm = props => {
-  const { handleSubmit, submitting } = props
+  const {handleSubmit, submitting} = props
+
   return (
     <form className="registration__form" onSubmit={handleSubmit}>
       <Link to="/" className="registration__link-to-home">
