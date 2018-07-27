@@ -8,6 +8,7 @@ const User = db.User
 module.exports = {
   createAccount,
   login,
+  checkEqualEmail
 }
 
 async function createAccount(userParam) {
@@ -18,6 +19,10 @@ async function createAccount(userParam) {
   }
 
   return await user.save()
+}
+
+async function checkEqualEmail(userParam) {
+  return (await User.findOne({email: userParam.email})) ? {equal: true} : {equal: false}
 }
 
 async function login({email, password}) {
