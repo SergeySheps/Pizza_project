@@ -1,6 +1,6 @@
 import React from 'react'
 import {Field, reduxForm} from 'redux-form'
-import {Redirect, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {Button, Icon} from 'semantic-ui-react'
 import {renderСommonTextInput} from './inputComponents/inputComponents'
 import '../styles/login.css'
@@ -19,10 +19,7 @@ const LoginForm = props => {
       <div className="login__form-item login__form-buttons">
         <div className="login__form-register">
           <span className="login__form-register-description">Don't have an account?</span>
-          <Link
-            to="/registration"
-            className="login-to-register-button-link login__form-buttons-item"
-          >
+          <Link to="/registration" className="login-to-register-button-link login__form-buttons-item">
             Create an account
           </Link>
         </div>
@@ -35,5 +32,5 @@ const LoginForm = props => {
 }
 
 export default reduxForm({
-  form: 'loginForm',
+  form: 'loginForm'
 })(LoginForm)

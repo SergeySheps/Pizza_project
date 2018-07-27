@@ -1,14 +1,17 @@
 import React from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {inputDateRange} from '../constants/constants'
-import {Redirect, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {Button, Icon} from 'semantic-ui-react'
 import {
   renderTextInputField,
   renderCheckboxInputField,
   renderDateInputField,
+  renderEmailInput
 } from './inputComponents/inputComponents'
+import {userService} from '../services/userServices/userService'
 import '../styles/register.css'
+import {toastr} from 'react-redux-toastr'
 
 const validate = values => {
   const errors = {}
@@ -40,16 +43,18 @@ const validate = values => {
   return errors
 }
 
-// ToDo: i'll create asyncValidate for checking equal emails
-// const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-// const asyncValidate = (values/*, dispatch */) => {
-//   return sleep(1000) // simulate server latency
-//     .then(() => {
-//       if ([ 'john', 'paul', 'george', 'ringo' ].includes(values.username)) {
-//         throw { username: 'That username is taken' }
-//       }
-//     })
-// }
+const asyncValidate = values => {
+  return userService.checkEqualEmail(values).then(
+    response => {
+      if (response.equal) {
+        throw {email: 'That email is taken'}
+      }
+    },
+    error => {
+      toastr.error('ERROR', 'Server is not available :(')
+    }
+  )
+}
 
 const RegistrationForm = props => {
   const {handleSubmit, submitting} = props
@@ -62,14 +67,9 @@ const RegistrationForm = props => {
       <h2 className="registration-header-text">Register</h2>
       <Field name="firstName" type="text" component={renderTextInputField} label="First name" />
       <Field name="secondName" type="text" component={renderTextInputField} label="Second name" />
-      <Field name="email" type="email" component={renderTextInputField} label="Email" />
+      <Field name="email" type="email" component={renderEmailInput} label="Email" />
       <Field name="password" type="password" component={renderTextInputField} label="Password" />
-      <Field
-        name="confirmedPassword"
-        type="password"
-        component={renderTextInputField}
-        label="Confirm Password"
-      />
+      <Field name="confirmedPassword" type="password" component={renderTextInputField} label="Confirm Password" />
       <Field
         name="birthday"
         type="date"
@@ -80,12 +80,7 @@ const RegistrationForm = props => {
       />
       <Field name="isEmployee" component={renderCheckboxInputField} label="Are you our employee?" />
       <div className="registration__form-item registration__form-buttons">
-        <Button
-          type="submit"
-          disabled={submitting}
-          primary
-          className="registration__form-buttons-item"
-        >
+        <Button type="submit" disabled={submitting} primary className="registration__form-buttons-item">
           Sign-up
         </Button>
       </div>
@@ -96,4 +91,5 @@ const RegistrationForm = props => {
 export default reduxForm({
   form: 'registrationForm',
   validate,
+  asyncValidate
 })(RegistrationForm)

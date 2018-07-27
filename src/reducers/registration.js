@@ -1,0 +1,22 @@
+import {userTypes} from '../actions/types'
+
+export function registration(state = {}, action) {
+  switch (action.type) {
+    case userTypes.REGISTER_REQUEST:
+      return {
+        isRegistrationInProgress: true
+      }
+    case userTypes.REGISTER_SUCCESS:
+      return {
+        hasBeenRegistered: true
+      }
+    case userTypes.REGISTER_FAILURE:
+      return {
+        isFailRegister: true
+      }
+    case userTypes.REGISTER_CLEAR:
+      return {}
+    default:
+      return state
+  }
+}

@@ -7,6 +7,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
+    "react-redux-toastr": "^7.3.0",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^4.0.8",
     "react-scripts": "1.1.4",
@@ -26,13 +27,14 @@
     "eject": "react-scripts eject"
   },
   "prettier": {
-    "printWidth": 100,
+    "printWidth": 120,
     "tabWidth": 2,
     "useTabs": false,
     "semi": false,
     "singleQuote": true,
-    "trailingComma": "all",
+    "trailingComma": "none",
     "bracketSpacing": false,
+    "jsxBracketSameLine": true,
     "arrowParens": "avoid"
   },
   "proxy": "http://localhost:4000"
