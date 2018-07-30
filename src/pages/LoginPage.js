@@ -3,14 +3,15 @@ import LoginForm from '../components/LoginForm'
 import {userActions} from '../actions/userActions'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {toastr} from 'react-redux-toastr'
+import {toastrNotification} from '../helpers/toastrHelper'
+import {toastrNotificationData} from '../constants/constants'
 
 class LoginPage extends Component {
   componentDidUpdate(prevProps, prevState) {
-    const {isFailLogin, logout} = this.props
+    const {hasLoginFailed, logout} = this.props
 
-    if (isFailLogin) {
-      toastr.error('Sign-In error', 'For some reason the sign-in was failed, please try again')
+    if (hasLoginFailed) {
+      toastrNotification('error', toastrNotificationData.loginError)
       logout()
     }
   }
@@ -33,11 +34,11 @@ class LoginPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {isLoggedIn, isFailLogin} = state.login
+  const {isLoggedIn, hasLoginFailed} = state.login
 
   return {
     isLoggedIn,
-    isFailLogin
+    hasLoginFailed
   }
 }
 

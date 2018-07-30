@@ -1,7 +1,4 @@
-const getToken = () => {
-  console.log(localStorage.getItem('token'))
-  return localStorage.getItem('token')
-}
+import {getToken} from "../helpers/authorizationHelper"
 
 const handleResponse = response => {
   return response.text().then(text => {
@@ -10,6 +7,7 @@ const handleResponse = response => {
       const error = (data && data.message) || response.statusText
       return Promise.reject(error)
     }
+    
     return data
   })
 }
@@ -42,7 +40,7 @@ const getRequestWithToken = url => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': getToken()
+      'x-access-token': getToken("token")
     }
   }
 
@@ -54,7 +52,7 @@ const postRequestWithToken = (url, data) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': getToken()
+      'x-access-token': getToken("token")
     },
     body: JSON.stringify(data)
   }

@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import MyMenu from './Menu'
+import HeaderNavigationBar from './HeaderNavigationBar'
 import '../../styles/header.css'
 
 const Header = props => {
   return (
     <header>
-      <MyMenu />
+      <HeaderNavigationBar />
     </header>
   )
 }

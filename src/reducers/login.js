@@ -18,7 +18,7 @@ export function login(state = initialState, action) {
     case userTypes.LOGIN_FAILURE:
       return {
         isLoggedIn: false,
-        isFailLogin: true
+        hasLoginFailed: true
       }
     case userTypes.LOGOUT:
       return {}

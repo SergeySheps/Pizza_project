@@ -12,7 +12,7 @@ export function registration(state = {}, action) {
       }
     case userTypes.REGISTER_FAILURE:
       return {
-        isFailRegister: true
+        hasRegistrationFailed: true
       }
     case userTypes.REGISTER_CLEAR:
       return {}

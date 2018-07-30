@@ -3,15 +3,16 @@ import RegistrationForm from '../components/RegistrationForm'
 import {userActions} from '../actions/userActions'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {toastr} from 'react-redux-toastr'
+import {toastrNotification} from '../helpers/toastrHelper'
+import {toastrNotificationData} from '../constants/constants'
 
 class RegistrationPage extends Component {
   componentDidUpdate(prevProps, prevState) {
-    const {isFailRegister, onRegisterClear} = this.props
+    const {hasRegistrationFailed, onRegisterClear} = this.props
 
-    if (isFailRegister !== prevProps.isFailRegister) {
-      if (isFailRegister) {
-        toastr.error('Registration', 'For some reason the registration was failed, please try again')
+    if (hasRegistrationFailed !== prevProps.hasRegistrationFailed) {
+      if (hasRegistrationFailed) {
+        toastrNotification('error', toastrNotificationData.registrationError)
         onRegisterClear()
       }
     }
@@ -22,7 +23,7 @@ class RegistrationPage extends Component {
 
     if (hasBeenRegistered) {
       onRegisterClear()
-      toastr.success('Registration', 'Registration is successfully completed')
+      toastrNotification('success', toastrNotificationData.registrationSuccess)
       return <Redirect to="/login" />
     }
 
@@ -37,11 +38,11 @@ class RegistrationPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {hasBeenRegistered, isFailRegister} = state.registration
+  const {hasBeenRegistered, hasRegistrationFailed} = state.registration
 
   return {
     hasBeenRegistered,
-    isFailRegister
+    hasRegistrationFailed
   }
 }
 

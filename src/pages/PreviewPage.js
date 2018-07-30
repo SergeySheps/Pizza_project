@@ -11,6 +11,7 @@ const PreviewPage = props => {
   )
 }
 
+// TODO: i'll need this functions in further development
 function mapStateToProps(state) {
   return {}
 }
@@ -20,5 +21,5 @@ function mapDispatchToProps(dispatch) {
     login: values => dispatch(userActions.login(values))
   }
 }
-
+//
 export default connect(mapStateToProps)(PreviewPage)

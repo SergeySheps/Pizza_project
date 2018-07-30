@@ -11,7 +11,9 @@ import {
 } from './inputComponents/inputComponents'
 import {userService} from '../services/userServices/userService'
 import '../styles/register.css'
-import {toastr} from 'react-redux-toastr'
+// import {toastr} from 'react-redux-toastr'
+import {toastrNotification} from '../helpers/toastrHelper'
+import {toastrNotificationData} from '../constants/constants'
 
 const validate = values => {
   const errors = {}
@@ -51,7 +53,7 @@ const asyncValidate = values => {
       }
     },
     error => {
-      toastr.error('ERROR', 'Server is not available :(')
+      toastrNotification('error', toastrNotificationData.validationError)
     }
   )
 }

@@ -13,22 +13,22 @@ function login({email, password}) {
   return dispatch => {
     userService.login(email, password).then(
       user => {
-        dispatch(success(user))
+        dispatch(loginSuccess(user))
       },
       error => {
-        dispatch(failure({error}))
+        dispatch(loginFailure({error}))
       }
     )
   }
 
-  function success(user) {
+  function loginSuccess(user) {
     return {
       type: userTypes.LOGIN_SUCCESS,
       user
     }
   }
 
-  function failure(error) {
+  function loginFailure(error) {
     return {
       type: userTypes.LOGIN_FAILURE,
       error
@@ -59,24 +59,23 @@ function register(user) {
   return dispatch => {
     userService.register(user).then(
       user => {
-        console.log('reg+')
-        dispatch(success(user))
+        dispatch(registerSuccess(user))
+        //dispatch(toastr.success(user))
       },
       error => {
-        console.log('reg-')
-        dispatch(failure(error.toString()))
+        dispatch(registerFailure(error.toString()))
       }
     )
   }
 
-  function success(user) {
+  function registerSuccess(user) {
     return {
       type: userTypes.REGISTER_SUCCESS,
       user
     }
   }
 
-  function failure(error) {
+  function registerFailure(error) {
     return {
       type: userTypes.REGISTER_FAILURE,
       error

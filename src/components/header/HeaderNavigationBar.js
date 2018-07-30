@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {userActions} from '../../actions/userActions'
 import '../../styles/menu.css'
 
-class MyMenu extends Component {
+class HeaderNavigationBar extends Component {
   render() {
     const {logout, isLoggedIn} = this.props
 
@@ -58,4 +58,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MyMenu)
+)(HeaderNavigationBar)
