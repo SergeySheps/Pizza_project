@@ -1,20 +1,20 @@
 import React from 'react'
-import { Input, Checkbox, Form, Label } from 'semantic-ui-react'
+import {Input, Checkbox, Form, Label} from 'semantic-ui-react'
 
 export const renderTextInputField = props => {
   const {
     input,
     label,
     type,
-    meta: { touched, error },
+    meta: {touched, error}
   } = props
 
   return (
     <div className="registration__form-item">
       <label className="registration__form-item-label">{label}</label>
       <div className="registration__form-item-content">
-        <Form.Field inline>
-          <Input error={touched && error} {...input} placeholder={label} type={type} />
+        <Form.Field inline className="form-field-with-label">
+          <Input error={!!(touched && error)} {...input} placeholder={label} type={type} />
           {touched &&
             error && (
               <Label pointing="left" className="warning-label">
@@ -28,7 +28,7 @@ export const renderTextInputField = props => {
 }
 
 export const renderСommonTextInput = props => {
-  const { input, label, type } = props
+  const {input, label, type} = props
 
   return (
     <div className="login__form-item">
@@ -40,23 +40,49 @@ export const renderСommonTextInput = props => {
   )
 }
 
+export const renderEmailInput = props => {
+  const {
+    input,
+    label,
+    type,
+    meta: {asyncValidating, touched, error}
+  } = props
+
+  return (
+    <div className="registration__form-item">
+      <label className="registration__form-item-label">{label}</label>
+      <div className={`login__form-item-content`}>
+        <Form.Field inline className="form-field-with-label">
+          <Input error={!!(touched && error)} {...input} placeholder={label} type={type} loading={asyncValidating} />
+          {touched &&
+            error && (
+              <Label pointing="left" className="warning-label">
+                {error}
+              </Label>
+            )}
+        </Form.Field>
+      </div>
+    </div>
+  )
+}
+
 export const renderCheckboxInputField = props => {
-  const { input, label } = props
+  const {input, label} = props
 
   return (
     <div className="registration__form-item">
       <Checkbox
         label={label}
         checked={input.value ? true : false}
-        onChange={(e, { checked }) => input.onChange(checked)}
+        onChange={(e, {checked}) => input.onChange(checked)}
       />
     </div>
   )
 }
 
 export const renderDateInputField = props => {
-  const { input, label, type, min, max } = props
-  
+  const {input, label, type, min, max} = props
+
   return (
     <div className="registration__form-item">
       <label className="registration__form-item-label">{label}</label>
