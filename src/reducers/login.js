@@ -1,13 +1,15 @@
 import {userTypes} from '../actions/types'
+import {getLocalStorageItem} from "../helpers/authorizationHelper"
 
-const user = JSON.parse(localStorage.getItem('user'))
+
+const user = JSON.parse(getLocalStorageItem('user'))
 const initialState = user ? {isLoggedIn: true, ...user} : {}
 
 export function login(state = initialState, action) {
   switch (action.type) {
     case userTypes.LOGIN_REQUEST:
       return {
-        hasToken: !!localStorage.getItem('token'),
+        hasToken: !!getLocalStorageItem('token'),
         user: action.user
       }
     case userTypes.LOGIN_SUCCESS:

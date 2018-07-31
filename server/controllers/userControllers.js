@@ -1,14 +1,11 @@
-const express = require('express')
 const {statusCodes} = require('../constants/constants')
-const userServices = require('./userServices')
-const verifyToken = require('../helpers/verifyToken')
-const router = express.Router()
+const userServices = require('../services/userServices')
 
-module.exports = router
-
-router.post('/registration', register)
-router.post('/login', login)
-router.post('/main', verifyToken, mainPage)
+module.exports = {
+  register,
+  login,
+  mainPage
+}
 
 function register(req, res) {
   if (req.query.isEqual) {

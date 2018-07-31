@@ -1,9 +1,36 @@
 import {apiConfig} from '../config/apiConfigs/apiConfig'
 
+export const pizzaSizes = {
+  small: 22,
+  average: 30,
+  big: 36
+}
+
 export const basePizzaPrice = {
-  '22': 4,
-  '30': 6,
-  '36': 8
+  [pizzaSizes.small]: 4,
+  [pizzaSizes.average]: 6,
+  [pizzaSizes.big]: 8
+}
+
+export const pizzaSizeIndexes = {
+  [pizzaSizes.small]: 1,
+  [pizzaSizes.average]: 2,
+  [pizzaSizes.big]: 3
+}
+
+export const pizzaIndexeSizes = {
+  1: pizzaSizes.small,
+  2: pizzaSizes.average,
+  3: pizzaSizes.big
+}
+
+export const coefficientPrice = 0.5
+
+export const pizzaTypeIngredients = {
+  meat: 'Meat',
+  cheese: 'Cheese',
+  vegetables: 'Vegetables',
+  sauce: 'Sauce'
 }
 
 export const inputDateRange = {
@@ -34,6 +61,10 @@ export const toastrNotificationData = {
     message: 'For some reason the sign-in was failed, please try again'
   },
   validationError: {
+    title: 'ERROR',
+    message: 'Server is not available :('
+  },
+  getproductsError: {
     title: 'ERROR',
     message: 'Server is not available :('
   }

@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {userActions} from '../../actions/userActions'
 import '../../styles/menu.css'
+import {pizzaActions} from '../../actions/pizzaActions'
 
 class HeaderNavigationBar extends Component {
   render() {
@@ -51,7 +52,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(userActions.logout())
+    logout: () => {
+      dispatch(pizzaActions.clear())
+      dispatch(userActions.logout())
+    }
   }
 }
 

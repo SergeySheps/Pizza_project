@@ -1,4 +1,4 @@
-import {getToken} from "../helpers/authorizationHelper"
+import {getLocalStorageItem} from "../helpers/authorizationHelper"
 
 const handleResponse = response => {
   return response.text().then(text => {
@@ -40,7 +40,7 @@ const getRequestWithToken = url => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': getToken("token")
+      'x-access-token': getLocalStorageItem("token")
     }
   }
 
@@ -52,7 +52,7 @@ const postRequestWithToken = (url, data) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': getToken("token")
+      'x-access-token': getLocalStorageItem("token")
     },
     body: JSON.stringify(data)
   }
