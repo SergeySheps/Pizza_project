@@ -9,7 +9,7 @@ import {
   renderDateInputField,
   renderEmailInput
 } from './inputComponents/inputComponents'
-import {userService} from '../services/userServices/userService'
+import {userService} from '../services/userService'
 import '../styles/register.css'
 import {toastrNotification} from '../helpers/toastrHelper'
 import {toastrNotificationData} from '../constants/constants'

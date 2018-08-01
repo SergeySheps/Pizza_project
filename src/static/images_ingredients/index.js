@@ -14,6 +14,4 @@ import ham from './vetchina.jpg';
 import pepper from './zalen_perec_ziaNxYZ.jpg';
 import veal from './veal.png';
 
-
-
 export default {bekon, veal,feta,beef, chicken, bow, mocarella, parmezan, peperoni, tomato, potato, sauce_dom, sauce_ralfr, ham,pepper};

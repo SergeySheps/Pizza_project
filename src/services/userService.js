@@ -1,6 +1,6 @@
-import api from '../../api/api'
-import {routs} from '../../constants/constants'
-import {setToken} from '../../helpers/authorizationHelper'
+import api from '../api/api'
+import {routs} from '../constants/constants'
+import {setLocalStorageItem} from '../helpers/authorizationHelper'
 
 export const userService = {
   login,
@@ -13,8 +13,8 @@ function login(email, password) {
   return api.postRequestWithoutToken(routs.login, {email, password}).then(
     user => {
       const {token, ...userData} = user
-      setToken('token', token);
-      setToken('user', JSON.stringify(userData));
+      setLocalStorageItem('token', token);
+      setLocalStorageItem('user', JSON.stringify(userData));
       return userData
     },
     error => {

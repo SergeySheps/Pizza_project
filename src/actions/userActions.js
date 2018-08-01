@@ -1,5 +1,5 @@
 import {userTypes} from './types'
-import {userService} from '../services/userServices/userService'
+import {userService} from '../services/userService'
 
 export const userActions = {
   login,
@@ -60,7 +60,6 @@ function register(user) {
     userService.register(user).then(
       user => {
         dispatch(registerSuccess(user))
-        //dispatch(toastr.success(user))
       },
       error => {
         dispatch(registerFailure(error.toString()))

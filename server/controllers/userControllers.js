@@ -1,14 +1,5 @@
-const express = require('express')
 const {statusCodes} = require('../constants/constants')
-const userServices = require('./userServices')
-const verifyToken = require('../helpers/verifyToken')
-const router = express.Router()
-
-module.exports = router
-
-router.post('/registration', register)
-router.post('/login', login)
-router.post('/main', verifyToken, mainPage)
+const userServices = require('../services/userServices')
 
 function register(req, res) {
   if (req.query.isEqual) {
@@ -45,4 +36,10 @@ function login(req, res) {
 
 function mainPage(req, res) {
   // editing queries from mainPage
+}
+
+module.exports = {
+  register,
+  login,
+  mainPage
 }

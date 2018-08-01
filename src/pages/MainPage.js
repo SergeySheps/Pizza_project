@@ -1,10 +1,24 @@
 import React, {Component} from 'react'
 import Header from '../components/header/Header'
+import Main from '../components/main/main_MainPage/Main'
 import {userActions} from '../actions/userActions'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
+import {getLocalStorageItem} from '../helpers/authorizationHelper'
 
 class MainPage extends Component {
+  state = {
+    hasToken: true
+  }
+
+  handleCheckToken = () => {
+    if (!getLocalStorageItem('token')) {
+      this.setState({
+        hasToken: false
+      })
+    }
+  }
+  
   render() {
     const {isLoggedIn, logout} = this.props
 
@@ -12,15 +26,16 @@ class MainPage extends Component {
       return <Redirect to="/" />
     }
 
-    if (!localStorage.getItem('token')) {
+    if (!getLocalStorageItem('token')) {
       logout()
       return <Redirect to="/login" />
     }
 
     return (
-      <React.Fragment>
+      <div className="wrapperCheckToken" onClick={this.handleCheckToken}>
         <Header />
-      </React.Fragment>
+        <Main />
+      </div>
     )
   }
 }
