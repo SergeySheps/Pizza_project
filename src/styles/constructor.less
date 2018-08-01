@@ -29,21 +29,29 @@
     background: rgb(192, 192, 192);
   }
 }
-.pizza-constructor__content {
-  display: flex;
+.pizza-constructor {
+  width: 100%;
+  &__content {
+    display: flex;
 
-  &-logging-price {
-    font-size: 15px;
-    margin: 40px 40px 0;
+    &-logging-price {
+      font-size: 15px;
+      margin: 40px 40px 0;
+    }
+    &-tab-panel {
+      flex: 500px 1 1;
+    }
+    &-total-price {
+      border-top: 1px solid black;
+      padding: 20px 0;
+    }
   }
-  &-tab-panel {
-    flex: 500px 1 1;
-  }
-  &-total-price {
-    border-top: 1px solid black;
-    padding: 20px 0;
+  &_sizes {
+    display: flex;
+    justify-content: center;
   }
 }
+
 .added-ingredients-list {
   padding: 0;
   margin: 10px 0 0;
@@ -57,11 +65,6 @@
 .all-ingredients-list {
   display: flex;
   flex-flow: row wrap;
-}
-
-.pizza-constructor_sizes {
-  display: flex;
-  justify-content: center;
 }
 
 .button-add-inrgedient,

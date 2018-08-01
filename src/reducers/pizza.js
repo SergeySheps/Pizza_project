@@ -8,9 +8,10 @@ export function pizza(state = [], action) {
       return {
         basePizzaPrice: basePizzaPrice[pizzaSizes.small],
         products: action.products.map(product => {
-          const newPriceIngredient = Object.assign({}, product)
-          newPriceIngredient.price -= coefficientPrice
-          return newPriceIngredient
+          return {
+            ...product,
+            price: product.price - coefficientPrice
+          }
         })
       }
     case pizzaTypes.PIZZA_GET_PRODUCTS_FAILURE:
@@ -20,18 +21,8 @@ export function pizza(state = [], action) {
     case pizzaTypes.PIZZA_CREATE_PRICE_FROM_SIZE:
       return {
         basePizzaPrice: basePizzaPrice[pizzaIndexeSizes[action.nextIndexSize]],
-        products: action.products.map(product => {
-          const newPriceIngredient = Object.assign({}, product)
-          const coefficientDifferencePrice = Math.abs(action.nextIndexSize - action.currentIndexSize)
-          if (action.nextIndexSize > action.currentIndexSize) {
-            newPriceIngredient.price += coefficientDifferencePrice * coefficientPrice
-          } else {
-            newPriceIngredient.price -= coefficientDifferencePrice * coefficientPrice
-          }
-          return newPriceIngredient
-        })
+        products: action.products
       }
-
     case pizzaTypes.PIZZA_CLEAR:
       return {}
     default:

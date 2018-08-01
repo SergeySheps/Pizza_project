@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const userModel = require('../DBmodels/userModel')
-const ingredientsModel = require('../DBmodels/ingredientsModel')
+const ingredientModel = require('../DBmodels/ingredientModel')
 
 mongoose.Promise = global.Promise
 
 module.exports = {
   User: userModel,
-  Ingredients: ingredientsModel
+  Ingredients: ingredientModel
 }

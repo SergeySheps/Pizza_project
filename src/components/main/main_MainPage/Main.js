@@ -9,6 +9,7 @@ class Main extends Component {
   state = {
     isCreateYourself: false
   }
+  
   handleCreateYourself = () => {
     this.setState({
       isCreateYourself: !this.state.isCreateYourself
@@ -16,8 +17,10 @@ class Main extends Component {
     const {getProductsFromDB} = this.props
     getProductsFromDB()
   }
+
   render() {
     const {isCreateYourself} = this.state
+
     return (
       <main className="main__mainPage">
         <Button primary onClick={this.handleCreateYourself} className="create-pizza-yourself-button">

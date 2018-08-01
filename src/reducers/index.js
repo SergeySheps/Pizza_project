@@ -3,12 +3,12 @@ import {reducer as formReducer} from 'redux-form'
 import {reducer as toastrReducer} from 'react-redux-toastr'
 import {login} from './login'
 import {pizza} from './pizza'
-import {ingredients} from './ingredients'
+import {addedIngredients} from './addedIngredients'
 import {registration} from './registration'
 
 export default combineReducers({
   login,
-  ingredients,
+  addedIngredients,
   registration,
   pizza,
   form: formReducer,

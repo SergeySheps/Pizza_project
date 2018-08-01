@@ -3,10 +3,6 @@ const db = require('../helpers/dbHelpers')
 const mongoose = require('mongoose')
 const Ingredients = db.Ingredients
 
-module.exports = {
-  getProducts
-}
-
 async function getProducts() {
   mongoose.connect(
     config.connectionDBString,
@@ -19,4 +15,8 @@ async function getProducts() {
   })
 
   return products
+}
+
+module.exports = {
+  getProducts
 }

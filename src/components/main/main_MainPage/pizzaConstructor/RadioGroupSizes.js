@@ -16,7 +16,7 @@ export const RadioGroupSizes = props => {
           label={LabelSmallSize}
           name="pizza_size"
           value={pizzaSizeIndexes[pizzaSizes.small]}
-          checked={statePizzaConstuctor.pizza_size_index === pizzaSizeIndexes[pizzaSizes.small] || !statePizzaConstuctor.pizza_size_index}
+          checked={statePizzaConstuctor.pizzaSizeIndex === pizzaSizeIndexes[pizzaSizes.small] || !statePizzaConstuctor.pizzaSizeIndex}
           onChange={choosePizzaSize}
         />
       </Form.Field>
@@ -25,7 +25,7 @@ export const RadioGroupSizes = props => {
           label={LabelAverageSize}
           name="pizza_size"
           value={pizzaSizeIndexes[pizzaSizes.average]}
-          checked={statePizzaConstuctor.pizza_size_index === pizzaSizeIndexes[pizzaSizes.average]}
+          checked={statePizzaConstuctor.pizzaSizeIndex === pizzaSizeIndexes[pizzaSizes.average]}
           onChange={choosePizzaSize}
         />
       </Form.Field>
@@ -34,7 +34,7 @@ export const RadioGroupSizes = props => {
           label={LabelBigSize}
           name="pizza_size"
           value={pizzaSizeIndexes[pizzaSizes.big]}
-          checked={statePizzaConstuctor.pizza_size_index === pizzaSizeIndexes[pizzaSizes.big]}
+          checked={statePizzaConstuctor.pizzaSizeIndex === pizzaSizeIndexes[pizzaSizes.big]}
           onChange={choosePizzaSize}
         />
       </Form.Field>

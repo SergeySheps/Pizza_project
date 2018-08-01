@@ -7,7 +7,8 @@ import {
   pizzaTypeIngredients,
   pizzaSizeIndexes,
   pizzaIndexeSizes,
-  toastrNotificationData
+  toastrNotificationData,
+  coefficientPrice
 } from '../../../../constants/constants'
 import {RadioGroupSizes} from './RadioGroupSizes'
 import {getLocalStorageItem, setLocalStorageItem} from '../../../../helpers/authorizationHelper'
@@ -18,14 +19,26 @@ import {toastrNotification} from '../../../../helpers/toastrHelper'
 
 class PizzaConstructor extends Component {
   state = {
-    pizza_size_index: pizzaSizeIndexes[pizzaSizes.small]
+    pizzaSizeIndex: pizzaSizeIndexes[pizzaSizes.small]
   }
 
   componentWillUpdate(nextProps, nextState) {
     const {products, createPriceFromSize} = this.props
+    const {pizzaSizeIndex} = this.state
 
-    if (nextState.pizza_size_index !== this.state.pizza_size_index) {
-      createPriceFromSize(products, this.state.pizza_size_index, nextState.pizza_size_index)
+    if (nextState.pizzaSizeIndex !== pizzaSizeIndex) {
+      const updatedPriceProducts = products.map(product => {
+        const newPriceIngredient = Object.assign({}, product)
+        const coefficientDifferencePrice = Math.abs(nextState.pizzaSizeIndex - pizzaSizeIndex)
+        if (nextState.pizzaSizeIndex > pizzaSizeIndex) {
+          newPriceIngredient.price += coefficientDifferencePrice * coefficientPrice
+        } else {
+          newPriceIngredient.price -= coefficientDifferencePrice * coefficientPrice
+        }
+        return newPriceIngredient
+      })
+
+      createPriceFromSize(updatedPriceProducts, nextState.pizzaSizeIndex)
     }
   }
 
@@ -70,7 +83,7 @@ class PizzaConstructor extends Component {
       urlImage: 'url',
       name: 'base',
       totalPrice: basePizzaPrice + addedIngredients.reduce((prev, curr) => prev + curr.price, 0),
-      size: pizzaIndexeSizes[this.state.pizza_size_index],
+      size: pizzaIndexeSizes[this.state.pizzaSizeIndex],
       amount: 1,
       ingredients: addedIngredients
     }
@@ -81,8 +94,8 @@ class PizzaConstructor extends Component {
 
   choosePizzaSize = (e, {value}) => {
     this.setState({
-      prev_pizza_size_index: this.state.pizza_size_index,
-      pizza_size_index: value
+      // prevPizzaSizeIndex: this.state.pizzaSizeIndex,
+      pizzaSizeIndex: value
     })
   }
 
@@ -90,7 +103,7 @@ class PizzaConstructor extends Component {
     const {classList} = event.target
 
     if (classList.contains('button-add-inrgedient') || classList.contains('button-reduce-inrgedient')) {
-      const {addIngredient, reduceIngredient, products} = this.props
+      const {addIngredient, reduceIngredient, products, addedIngredients, addUpdateIngredient} = this.props
       const ingredient = products.find(
         ingridient =>
           ingridient.name ===
@@ -102,7 +115,12 @@ class PizzaConstructor extends Component {
 
       if (ingredient) {
         if (classList.contains('button-add-inrgedient')) {
-          addIngredient(ingredient)
+          const repeatingIngredient = addedIngredients.find(el => el.name === ingredient.name)
+          if (repeatingIngredient) {
+            addUpdateIngredient(repeatingIngredient)
+          } else {
+            addIngredient(ingredient)
+          }
         }
 
         if (classList.contains('button-reduce-inrgedient')) {
@@ -165,7 +183,7 @@ class PizzaConstructor extends Component {
 
 const mapStateToProps = state => {
   const {products, basePizzaPrice, hasGetProductsFailed} = state.pizza
-  const addedIngredients = state.ingredients
+  const addedIngredients = state.addedIngredients
 
   return {
     products,
@@ -177,10 +195,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createPriceFromSize: (products, currentSize, nextSize) =>
-      dispatch(pizzaActions.createPriceFromSize(products, currentSize, nextSize)),
+    createPriceFromSize: (products, nextSizeIndex) => dispatch(pizzaActions.createPriceFromSize(products, nextSizeIndex)),
     reduceIngredient: ingredient => dispatch(pizzaActions.reduceIngredient(ingredient)),
     addIngredient: ingredient => dispatch(pizzaActions.addIngredient(ingredient)),
+    addUpdateIngredient: ingredient => dispatch(pizzaActions.addUpdateIngredient(ingredient)),
     refreshIngredients: ingredients => dispatch(pizzaActions.refreshIngredients(ingredients))
   }
 }

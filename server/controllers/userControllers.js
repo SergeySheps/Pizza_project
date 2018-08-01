@@ -1,12 +1,6 @@
 const {statusCodes} = require('../constants/constants')
 const userServices = require('../services/userServices')
 
-module.exports = {
-  register,
-  login,
-  mainPage
-}
-
 function register(req, res) {
   if (req.query.isEqual) {
     userServices.checkEqualEmail(req.body).then(
@@ -42,4 +36,10 @@ function login(req, res) {
 
 function mainPage(req, res) {
   // editing queries from mainPage
+}
+
+module.exports = {
+  register,
+  login,
+  mainPage
 }

@@ -1,10 +1,6 @@
 const {statusCodes} = require('../constants/constants')
 const pizzaServices = require('../services/pizzaServices')
 
-module.exports = {
-  getProducts
-}
-
 function getProducts(req, res) {
   pizzaServices.getProducts().then(
     products => {
@@ -14,4 +10,8 @@ function getProducts(req, res) {
       res.status(statusCodes.InternalServerError).json({message: error.message})
     }
   )
+}
+
+module.exports = {
+  getProducts
 }

@@ -6,12 +6,6 @@ const {saltRounds} = require('../constants/constants')
 const mongoose = require('mongoose')
 const User = db.User
 
-module.exports = {
-  createAccount,
-  login,
-  checkEqualEmail
-}
-
 async function createAccount(userParam) {
   mongoose.connect(
     config.connectionDBString,
@@ -64,4 +58,10 @@ async function login({email, password}) {
       token
     }
   }
+}
+
+module.exports = {
+  createAccount,
+  login,
+  checkEqualEmail
 }

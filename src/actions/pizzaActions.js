@@ -7,7 +7,8 @@ export const pizzaActions = {
   addIngredient,
   reduceIngredient,
   refreshIngredients,
-  clear
+  clear,
+  addUpdateIngredient
 }
 
 function getProductsFromDB() {
@@ -36,11 +37,10 @@ function getProductsFromDB() {
   }
 }
 
-function createPriceFromSize(products, currentIndexSize, nextIndexSize) {
+function createPriceFromSize(products, nextIndexSize) {
   return {
     type: pizzaTypes.PIZZA_CREATE_PRICE_FROM_SIZE,
     products,
-    currentIndexSize,
     nextIndexSize
   }
 }
@@ -48,6 +48,13 @@ function createPriceFromSize(products, currentIndexSize, nextIndexSize) {
 function addIngredient(ingredient) {
   return {
     type: pizzaTypes.PIZZA_ADD_INGREDIENT,
+    ingredient
+  }
+}
+
+function addUpdateIngredient(ingredient) {
+  return {
+    type: pizzaTypes.PIZZA_ADD_UPDATE_INGREDIENT,
     ingredient
   }
 }
