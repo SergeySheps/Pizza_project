@@ -8,14 +8,15 @@ export const pizzaActions = {
   reduceIngredient,
   refreshIngredients,
   clear,
-  addUpdateIngredient
+  addUpdateIngredient,
+  changePatinationPage
 }
 
-function getProductsFromDB() {
+function getProductsFromDB(queryString) {
   return dispatch => {
-    pizzaService.getProductsFromDB().then(
+    pizzaService.getProductsFromDB(queryString).then(
       products => {
-        dispatch(getProductsSuccess(products))
+        products.docs ? dispatch(getPizzasSuccess(products)) : dispatch(getProductsSuccess(products))
       },
       error => {
         dispatch(getProductsFailure())
@@ -34,6 +35,20 @@ function getProductsFromDB() {
     return {
       type: pizzaTypes.PIZZA_GET_PRODUCTS_FAILURE
     }
+  }
+
+  function getPizzasSuccess(products) {
+    return {
+      type: pizzaTypes.PIZZA_GET_PIZZAS_SUCCESS,
+      products
+    }
+  }
+}
+
+function changePatinationPage(page) {
+  return {
+    type: pizzaTypes.PIZZA_CHANGE_PAGINATION_PAGE,
+    page
   }
 }
 

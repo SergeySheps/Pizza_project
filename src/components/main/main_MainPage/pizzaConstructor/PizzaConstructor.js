@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {pizzaActions} from '../../../../actions/pizzaActions'
-import {Tab, Loader, Button, Sticky} from 'semantic-ui-react'
+import {Tab, Loader, Button} from 'semantic-ui-react'
 import {
   pizzaSizes,
   pizzaTypeIngredients,
@@ -94,7 +94,6 @@ class PizzaConstructor extends Component {
 
   choosePizzaSize = (e, {value}) => {
     this.setState({
-      // prevPizzaSizeIndex: this.state.pizzaSizeIndex,
       pizzaSizeIndex: value
     })
   }

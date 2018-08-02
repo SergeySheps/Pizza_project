@@ -41,10 +41,11 @@ export const inputDateRange = {
 const url = apiConfig.apiUrl
 
 export const routs = {
-  registration: `${url}/registration?`,
+  registration: `${url}/registration`,
   login: `${url}/login`,
   checkEqualEmail: `${url}/registration?isEqual=true`,
-  main: `${url}/main`
+  main: `${url}/main`,
+  preview:`${url}`
 }
 
 export const toastrNotificationData = {

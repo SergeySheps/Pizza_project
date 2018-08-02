@@ -1,25 +1,54 @@
-import React from 'react'
+import React, {Component} from 'react'
 import Header from '../components/header/Header'
-import {userActions} from '../actions/userActions'
+import Main from '../components/main/main_MainPage/Main'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
-const PreviewPage = props => {
-  return (
-    <React.Fragment>
-      <Header />
-    </React.Fragment>
-  )
-}
+class Previewpage extends Component {
+  state = {
+    isRedirect: false
+  }
 
-// TODO: i'll need this functions in further development
-function mapStateToProps(state) {
-  return {}
-}
+  handleCheckToken = event => {
+    const {target} = event
+    if (target.closest('.ui.pagination')) {
+      return
+    }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    login: values => dispatch(userActions.login(values))
+    this.setState({
+      isRedirect: true
+    })
+  }
+
+  render() {
+    const {isRedirect} = this.state
+    const {isLoggedIn} = this.props
+
+    if (isRedirect && !isLoggedIn) {
+      return <Redirect to="/login" />
+    } else if (isRedirect && isLoggedIn) {
+      return <Redirect to="/main" />
+    }
+
+    return (
+      <React.Fragment>
+        <Header />
+        <div className="wrapperCheckToken" onClick={this.handleCheckToken}>
+          <Main />
+        </div>
+      </React.Fragment>
+    )
   }
 }
-//
-export default connect(mapStateToProps)(PreviewPage)
+
+function mapStateToProps(state) {
+  const {isLoggedIn} = state.login
+  return {
+    isLoggedIn
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Previewpage)

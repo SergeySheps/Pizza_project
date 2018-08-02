@@ -1,20 +1,31 @@
 const config = require('../config.json')
 const db = require('../helpers/dbHelpers')
 const mongoose = require('mongoose')
+const {numOfPaginationLimit} = require('../constants/constants')
 const Ingredients = db.Ingredients
+const Pizza = db.Pizza
 
-async function getProducts() {
+async function getProducts(req) {
   mongoose.connect(
     config.connectionDBString,
     {useNewUrlParser: true}
   )
 
-  const products = await Ingredients.find({}).then(res => {
-    mongoose.connection.close()
-    return res
-  })
+  const queryStringValues = req.query
 
-  return products
+  return queryStringValues.numPage
+    ? await Pizza.paginate({}, {page: queryStringValues.numPage, limit: numOfPaginationLimit, lean: true}).then(
+        result => {
+          mongoose.connection.close().catch(()=>{})
+
+          return result
+        }
+      )
+    : await Ingredients.find({}).then(result => {
+        mongoose.connection.close().catch(()=>{})
+
+        return result
+      })
 }
 
 module.exports = {
