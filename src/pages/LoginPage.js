@@ -9,7 +9,7 @@ import {toastrNotificationData} from '../constants/constants'
 class LoginPage extends Component {
   componentDidUpdate(prevProps, prevState) {
     const {hasLoginFailed, logout} = this.props
-
+    
     if (hasLoginFailed) {
       toastrNotification('error', toastrNotificationData.loginError)
       logout()

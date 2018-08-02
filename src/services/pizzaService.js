@@ -5,6 +5,8 @@ export const pizzaService = {
   getProductsFromDB
 }
 
-function getProductsFromDB() {
-  return api.getRequestWithToken(routs.main)
+function getProductsFromDB(queryString) {
+  return window.location.pathname === '/'
+    ? api.getRequestWithoutToken(routs.preview + (queryString ? queryString : ''))
+    : api.getRequestWithToken(routs.main + (queryString ? queryString : ''))
 }

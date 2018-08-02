@@ -11,7 +11,7 @@ export const renderTextInputField = props => {
 
   return (
     <div className="registration__form-item">
-      <label className="registration__form-item-label">{label}</label>
+      <label className="registration__form-item-label">{`${label} *`}</label>
       <div className="registration__form-item-content">
         <Form.Field inline className="form-field-with-label">
           <Input error={!!(touched && error)} {...input} placeholder={label} type={type} />
@@ -50,7 +50,7 @@ export const renderEmailInput = props => {
 
   return (
     <div className="registration__form-item">
-      <label className="registration__form-item-label">{label}</label>
+      <label className="registration__form-item-label">{`${label} *`}</label>
       <div className={`login__form-item-content`}>
         <Form.Field inline className="form-field-with-label">
           <Input error={!!(touched && error)} {...input} placeholder={label} type={type} loading={asyncValidating} />

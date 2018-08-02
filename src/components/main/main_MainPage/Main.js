@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Button} from 'semantic-ui-react'
 import PizzaConstructor from './pizzaConstructor/PizzaConstructor'
+import CardField from './pizzaMenu/CardField'
 import {pizzaActions} from '../../../actions/pizzaActions'
 import '../../../styles/main.css'
 
@@ -9,12 +10,14 @@ class Main extends Component {
   state = {
     isCreateYourself: false
   }
-  
+
   handleCreateYourself = () => {
     this.setState({
       isCreateYourself: !this.state.isCreateYourself
     })
+
     const {getProductsFromDB} = this.props
+
     getProductsFromDB()
   }
 
@@ -24,9 +27,9 @@ class Main extends Component {
     return (
       <main className="main__mainPage">
         <Button primary onClick={this.handleCreateYourself} className="create-pizza-yourself-button">
-          Create your pizza yourself
+          {!isCreateYourself ? 'Create your pizza yourself' : 'Choose pizza from the menu'}
         </Button>
-        {isCreateYourself && <PizzaConstructor />}
+        {isCreateYourself ? <PizzaConstructor /> : <CardField />}
       </main>
     )
   }

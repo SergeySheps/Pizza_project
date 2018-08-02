@@ -2,7 +2,7 @@ import React from 'react'
 import {Icon} from 'semantic-ui-react'
 
 const Ingredient = props => {
-  const {name, image, price, amount} = props
+  const {name, image, price} = props
   return (
     <li className="ingredient-list__ingredient">
       <img

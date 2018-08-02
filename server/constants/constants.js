@@ -6,11 +6,13 @@ const statusCodes = {
 }
 
 const saltRounds = 10
+const numOfPaginationLimit = 3
 
 const typeOfNull = 'null'
 
 module.exports = {
   statusCodes,
   saltRounds,
-  typeOfNull
+  typeOfNull,
+  numOfPaginationLimit
 }

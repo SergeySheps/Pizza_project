@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Addedingredient = props => {
-  const {name, type, price, amount} = props
+  const {name, price, amount} = props
   return (
     <React.Fragment>
       {amount > 0 && (
