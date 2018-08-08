@@ -1,9 +1,9 @@
-const getToken = key => {
+const getLocalStorageItem = key => {
   return localStorage.getItem(key)
 }
 
-const setToken = (key, value) => {
+const setLocalStorageItem = (key, value) => {
   return localStorage.setItem(key, value)
 }
 
-export {getToken, setToken}
+export {getLocalStorageItem, setLocalStorageItem}

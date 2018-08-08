@@ -29,9 +29,9 @@ class RegistrationPage extends Component {
 
     return (
       <div className="registration">
-        <main className="registration__content">
+        <div className="registration__content">
           <RegistrationForm onSubmit={values => register(values)} />
-        </main>
+        </div>
       </div>
     )
   }

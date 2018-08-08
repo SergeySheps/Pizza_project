@@ -3,7 +3,7 @@ import {Provider} from 'react-redux'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import RegistrationPage from '../pages/RegistrationPage'
 import LoginPage from '../pages/LoginPage'
-import MainPage from '../pages/MainPage'
+import MainPageRouter from '../pages/MainPageRouter'
 import PreviewPage from '../pages/PreviewPage'
 import ReduxToastr from 'react-redux-toastr'
 
@@ -17,7 +17,7 @@ const Root = ({store}) => {
             <Route exact path="/" component={PreviewPage} />
             <Route path="/registration" component={RegistrationPage} />
             <Route path="/login" component={LoginPage} />
-            <Route path="/main" component={MainPage} />
+            <Route path="/main" component={MainPageRouter} />
           </Switch>
         </Router>
       </div>

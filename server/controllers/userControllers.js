@@ -1,14 +1,5 @@
-const express = require('express')
 const {statusCodes} = require('../constants/constants')
-const userServices = require('./userServices')
-const verifyToken = require('../helpers/verifyToken')
-const router = express.Router()
-
-module.exports = router
-
-router.post('/registration', register)
-router.post('/login', login)
-router.post('/main', verifyToken, mainPage)
+const userServices = require('../services/userServices')
 
 function register(req, res) {
   if (req.query.isEqual) {
@@ -43,6 +34,31 @@ function login(req, res) {
   )
 }
 
-function mainPage(req, res) {
-  // editing queries from mainPage
+function saveOrderData(req, res) {
+  userServices.saveOrderData(req.body).then(
+    order => {
+      res.json({})
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
+function getOrdersHistory(req, res) {
+  userServices.getOrdersHistory(req.body).then(
+    history => {
+      history ? res.json(history) : res.status(statusCodes.BadRequest).json({message: error.message})
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
+module.exports = {
+  register,
+  login,
+  saveOrderData,
+  getOrdersHistory
 }

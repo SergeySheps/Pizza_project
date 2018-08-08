@@ -1,12 +1,16 @@
 import {userTypes} from './types'
-import {userService} from '../services/userServices/userService'
+import {userService} from '../services/userService'
 
 export const userActions = {
   login,
   register,
   registerClear,
   logout,
-  checkExistingToken
+  checkExistingToken,
+  submitPizzaOrder,
+  getOrdersHistory,
+  updateOrdersHistory,
+  addOrderToHistory
 }
 
 function login({email, password}) {
@@ -60,7 +64,6 @@ function register(user) {
     userService.register(user).then(
       user => {
         dispatch(registerSuccess(user))
-        //dispatch(toastr.success(user))
       },
       error => {
         dispatch(registerFailure(error.toString()))
@@ -80,5 +83,70 @@ function register(user) {
       type: userTypes.REGISTER_FAILURE,
       error
     }
+  }
+}
+
+function submitPizzaOrder(orderData) {
+  return dispatch => {
+    userService.submitPizzaOrder(orderData).then(
+      order => {
+        dispatch(orderSuccess())
+      },
+      error => {
+        dispatch(orderFailure(error.toString()))
+      }
+    )
+  }
+
+  function orderSuccess() {
+    return {
+      type: userTypes.ORDER_SUCCESS
+    }
+  }
+
+  function orderFailure() {
+    return {
+      type: userTypes.ORDER_FAILURE
+    }
+  }
+}
+
+function getOrdersHistory(email) {
+  return dispatch => {
+    userService.getOrdersHistory(email).then(
+      history => {
+        dispatch(getOrdersHistorySuccess(history))
+      },
+      error => {
+        dispatch(getOrdersHistoryFailure())
+      }
+    )
+  }
+
+  function getOrdersHistorySuccess(history) {
+    return {
+      type: userTypes.ORDERS_HISTORY_SUCCESS,
+      history
+    }
+  }
+
+  function getOrdersHistoryFailure() {
+    return {
+      type: userTypes.ORDERS_HISTORY_FAILURE
+    }
+  }
+}
+
+function updateOrdersHistory(newHistory) {
+  return {
+    type: userTypes.ORDERS_HISTORY_UPDATE,
+    newHistory
+  }
+}
+
+function addOrderToHistory(order) {
+  return {
+    type: userTypes.ORDERS_HISTORY_ADD,
+    order
   }
 }

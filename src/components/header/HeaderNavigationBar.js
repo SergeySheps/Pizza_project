@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
-import {Button, Menu} from 'semantic-ui-react'
+import {Button, Menu, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {userActions} from '../../actions/userActions'
 import '../../styles/menu.css'
+import {pizzaActions} from '../../actions/pizzaActions'
+import ModalBasket from '../modals/ModalBasket'
 
 class HeaderNavigationBar extends Component {
   render() {
@@ -12,10 +14,21 @@ class HeaderNavigationBar extends Component {
     return (
       <Menu size="large" className="header__menu">
         <div className="menu__logo">
-          <Link to="/">Serjio's pizza</Link>
+          <Link to="/main">Serjio's pizza</Link>
         </div>
         {isLoggedIn ? (
           <Menu.Menu position="right">
+            <Menu.Item>
+              <Link to="/main/history">
+                <Button icon labelPosition="left" color="vk">
+                  <Icon name="clipboard list" />
+                  History
+                </Button>
+              </Link>
+            </Menu.Item>
+            <Menu.Item>
+              <ModalBasket />
+            </Menu.Item>
             <Menu.Item>
               <Button onClick={() => logout()} secondary>
                 Logout
@@ -51,7 +64,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(userActions.logout())
+    logout: () => {
+      dispatch(pizzaActions.clear())
+      dispatch(userActions.logout())
+    }
   }
 }
 
