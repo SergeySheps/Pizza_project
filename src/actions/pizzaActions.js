@@ -5,11 +5,11 @@ export const pizzaActions = {
   getProductsFromDB,
   createPriceFromSize,
   addIngredient,
-  reduceIngredient,
   refreshIngredients,
   clear,
-  addUpdateIngredient,
-  changePatinationPage
+  changePatinationPage,
+  addBasketItem,
+  incrementPizzaAmount
 }
 
 function getProductsFromDB(queryString) {
@@ -67,24 +67,24 @@ function addIngredient(ingredient) {
   }
 }
 
-function addUpdateIngredient(ingredient) {
-  return {
-    type: pizzaTypes.PIZZA_ADD_UPDATE_INGREDIENT,
-    ingredient
-  }
-}
-
-function reduceIngredient(ingredient) {
-  return {
-    type: pizzaTypes.PIZZA_REDUCE_INGREDIENT,
-    ingredient
-  }
-}
-
 function refreshIngredients(ingredients) {
   return {
     type: pizzaTypes.PIZZA_REFRESH_INGREDIENTS,
     ingredients
+  }
+}
+
+function addBasketItem(item) {
+  return {
+    type: pizzaTypes.BASKET_ADD_ITEM,
+    item
+  }
+}
+
+function incrementPizzaAmount(updatedBasket) {
+  return {
+    type: pizzaTypes.BASKET_INCREMENT_PIZZA_AMOUNT,
+    updatedBasket
   }
 }
 

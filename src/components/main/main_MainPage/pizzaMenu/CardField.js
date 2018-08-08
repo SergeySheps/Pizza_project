@@ -33,7 +33,7 @@ class CardField extends Component {
   }
 
   render() {
-    const {pizzas, pages, hasStopLoadingPizzas} = this.props
+    const {pizzas, pages, hasStopLoadingPizzas, addBasketItem} = this.props
 
     return (
       <React.Fragment>
@@ -41,7 +41,7 @@ class CardField extends Component {
           <div className="pizza-card-field">
             <div className="pizza-card-field__content">
               {hasStopLoadingPizzas ? (
-                pizzas.map(pizza => <PizzaCard {...pizza} key={pizza.id} />)
+                pizzas.map(pizza => <PizzaCard {...pizza} key={pizza.id} addBasketItem={addBasketItem} />)
               ) : (
                 <div className="wrapper-loader-pizzas">
                   <Loader active className="loader-pizzas" />
@@ -72,7 +72,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getProductsFromDB: queryString => dispatch(pizzaActions.getProductsFromDB(queryString)),
-    changePatinationPage: page => dispatch(pizzaActions.changePatinationPage(page))
+    changePatinationPage: page => dispatch(pizzaActions.changePatinationPage(page)),
+    addBasketItem: item => dispatch(pizzaActions.addBasketItem(item))
   }
 }
 

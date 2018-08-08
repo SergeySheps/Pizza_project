@@ -10,8 +10,10 @@ class Previewpage extends Component {
   }
 
   handleCheckToken = event => {
+    const {isLoggedIn} = this.props
     const {target} = event
-    if (target.closest('.ui.pagination')) {
+    
+    if (!isLoggedIn && target.closest('.ui.pagination')) {
       return
     }
 
@@ -32,8 +34,8 @@ class Previewpage extends Component {
 
     return (
       <React.Fragment>
-        <Header />
         <div className="wrapperCheckToken" onClick={this.handleCheckToken}>
+          <Header />
           <Main />
         </div>
       </React.Fragment>

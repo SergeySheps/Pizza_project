@@ -6,7 +6,9 @@ export const userActions = {
   register,
   registerClear,
   logout,
-  checkExistingToken
+  checkExistingToken,
+  submitPizzaOrder,
+  getOrdersHistory
 }
 
 function login({email, password}) {
@@ -78,6 +80,57 @@ function register(user) {
     return {
       type: userTypes.REGISTER_FAILURE,
       error
+    }
+  }
+}
+
+function submitPizzaOrder(orderData) {
+  return dispatch => {
+    userService.submitPizzaOrder(orderData).then(
+      order => {
+        dispatch(orderSuccess())
+      },
+      error => {
+        dispatch(orderFailure(error.toString()))
+      }
+    )
+  }
+
+  function orderSuccess() {
+    return {
+      type: userTypes.ORDER_SUCCESS
+    }
+  }
+
+  function orderFailure() {
+    return {
+      type: userTypes.ORDER_FAILURE
+    }
+  }
+}
+
+function getOrdersHistory(email) {
+  return dispatch => {
+    userService.getOrdersHistory(email).then(
+      history => {
+        dispatch(getOrdersHistorySuccess(history))
+      },
+      error => {
+        dispatch(getOrdersHistoryFailure())
+      }
+    )
+  }
+
+  function getOrdersHistorySuccess(history) {
+    return {
+      type: userTypes.ORDERS_HISTORY_SUCCESS,
+      history
+    }
+  }
+
+  function getOrdersHistoryFailure() {
+    return {
+      type: userTypes.ORDERS_HISTORY_FAILURE
     }
   }
 }

@@ -6,7 +6,9 @@ export const userService = {
   login,
   register,
   checkEqualEmail,
-  logout
+  logout,
+  submitPizzaOrder,
+  getOrdersHistory
 }
 
 function login(email, password) {
@@ -31,6 +33,14 @@ function register(user) {
   return api.postRequestWithoutToken(routs.registration, user)
 }
 
+function submitPizzaOrder(orderData) {
+  return api.postRequestWithToken(routs.main, orderData)
+}
+
 function checkEqualEmail({email}) {
   return api.postRequestWithoutToken(routs.checkEqualEmail, {email})
+}
+
+function getOrdersHistory(email) {
+  return api.postRequestWithToken(routs.history,{email})
 }

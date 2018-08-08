@@ -29,12 +29,13 @@ export const renderTextInputField = props => {
 
 export const renderСommonTextInput = props => {
   const {input, label, type} = props
+  const placeholder = label.trim().lastIndexOf('*') === label.length - 1 ? label.slice(0, label.length - 1) : label
 
   return (
     <div className="login__form-item">
       <label className="login__form-item-label">{label}</label>
       <div className="login__form-item-content">
-        <Input {...input} placeholder={label} type={type} />
+        <Input {...input} placeholder={placeholder} type={type} />
       </div>
     </div>
   )
