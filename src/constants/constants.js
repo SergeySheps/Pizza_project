@@ -6,6 +6,12 @@ export const pizzaSizes = {
   big: 36
 }
 
+export const pizzaPrices = {
+  small: 6,
+  average: 10,
+  big: 13
+}
+
 export const basePizzaPrice = {
   [pizzaSizes.small]: 4,
   [pizzaSizes.average]: 6,
@@ -25,6 +31,9 @@ export const pizzaIndexeSizes = {
 }
 
 export const coefficientPrice = 0.5
+export const discountPercent = 10
+export const minDiscountOrderPrice = 50
+export const defaultPagesCount = 3
 
 export const pizzaTypeIngredients = {
   meat: 'Meat',
@@ -41,10 +50,12 @@ export const inputDateRange = {
 const url = apiConfig.apiUrl
 
 export const routs = {
-  registration: `${url}/registration?`,
+  registration: `${url}/registration`,
   login: `${url}/login`,
   checkEqualEmail: `${url}/registration?isEqual=true`,
-  main: `${url}/main`
+  main: `${url}/main`,
+  history: `${url}/main/history`,
+  preview: `${url}`
 }
 
 export const toastrNotificationData = {
@@ -67,5 +78,13 @@ export const toastrNotificationData = {
   getproductsError: {
     title: 'ERROR',
     message: 'Server is not available :('
-  }
+  },
+  orderError: {
+    title: 'ERROR',
+    message: 'Order has not been proceeded'
+  },
+  orderSuccess: {
+    title: 'Order',
+    message: 'Order has been proceeded'
+  },
 }

@@ -1,6 +1,5 @@
 import {pizzaTypes} from '../actions/types'
 import {basePizzaPrice, coefficientPrice, pizzaIndexeSizes, pizzaSizes} from '../constants/constants'
-import {getLocalStorageItem} from '../helpers/authorizationHelper'
 
 export function pizza(state = [], action) {
   switch (action.type) {
@@ -14,6 +13,12 @@ export function pizza(state = [], action) {
           }
         })
       }
+    case pizzaTypes.PIZZA_GET_PIZZAS_SUCCESS:
+      return {
+        pages: action.products.pages,
+        pizzas: action.products.docs,
+        hasStopLoadingPizzas: true
+      }
     case pizzaTypes.PIZZA_GET_PRODUCTS_FAILURE:
       return {
         hasGetProductsFailed: true
@@ -22,6 +27,12 @@ export function pizza(state = [], action) {
       return {
         basePizzaPrice: basePizzaPrice[pizzaIndexeSizes[action.nextIndexSize]],
         products: action.products
+      }
+    case pizzaTypes.PIZZA_CHANGE_PAGINATION_PAGE:
+      return {
+        hasStopLoadingPizzas: false,
+        pizzas: [],
+        pages: action.pages
       }
     case pizzaTypes.PIZZA_CLEAR:
       return {}

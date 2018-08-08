@@ -34,12 +34,31 @@ function login(req, res) {
   )
 }
 
-function mainPage(req, res) {
-  // editing queries from mainPage
+function saveOrderData(req, res) {
+  userServices.saveOrderData(req.body).then(
+    order => {
+      res.json({})
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
+function getOrdersHistory(req, res) {
+  userServices.getOrdersHistory(req.body).then(
+    history => {
+      history ? res.json(history) : res.status(statusCodes.BadRequest).json({message: error.message})
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
 }
 
 module.exports = {
   register,
   login,
-  mainPage
+  saveOrderData,
+  getOrdersHistory
 }

@@ -5,13 +5,14 @@ const db = require('../helpers/dbHelpers')
 const {saltRounds} = require('../constants/constants')
 const mongoose = require('mongoose')
 const User = db.User
+const Order = db.Order
 
 async function createAccount(userParam) {
   mongoose.connect(
     config.connectionDBString,
     {useNewUrlParser: true}
   )
-  
+
   const user = new User(userParam)
 
   if (userParam.password) {
@@ -60,8 +61,36 @@ async function login({email, password}) {
   }
 }
 
+async function saveOrderData(orderData) {
+  mongoose.connect(
+    config.connectionDBString,
+    {useNewUrlParser: true}
+  )
+
+  const order = new Order(orderData)
+
+  return await order.save().then(res => {
+    mongoose.connection.close()
+    return res
+  })
+}
+
+async function getOrdersHistory({email}) {
+  mongoose.connect(
+    config.connectionDBString,
+    {useNewUrlParser: true}
+  )
+
+  return await Order.find({email}).then(result => {
+    mongoose.connection.close().catch(() => {})
+    return result
+  })
+}
+
 module.exports = {
   createAccount,
   login,
-  checkEqualEmail
+  checkEqualEmail,
+  saveOrderData,
+  getOrdersHistory
 }
