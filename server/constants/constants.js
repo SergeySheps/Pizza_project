@@ -6,7 +6,7 @@ const statusCodes = {
 }
 
 const saltRounds = 10
-const perPagelimit = 3
+const perPageLimit = 3
 
 const typeOfNull = 'null'
 
@@ -14,5 +14,5 @@ module.exports = {
   statusCodes,
   saltRounds,
   typeOfNull,
-  perPagelimit
+  perPageLimit
 }
