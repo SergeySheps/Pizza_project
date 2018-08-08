@@ -4,12 +4,24 @@ import {pizzaActions} from '../../actions/pizzaActions'
 import {connect} from 'react-redux'
 
 const BasketItem = props => {
-  const {urlImage, size, title, amount, price, ingredients, incrementPizzaAmount, basket, total} = props
+  const {
+    urlImage,
+    size,
+    title,
+    amount,
+    price,
+    ingredients,
+    incrementPizzaAmount,
+    basket,
+    total
+  } = props
 
   const incrementAmount = () => {
     const updatedBasket = basket.map(el => {
       const newAmount = amount + 1
-      return title === el.title && size === el.size ? {...el, amount: newAmount, total: price * newAmount} : el
+      return title === el.title && size === el.size
+        ? {...el, amount: newAmount, total: price * newAmount}
+        : el
     })
     incrementPizzaAmount(updatedBasket)
   }
@@ -19,7 +31,9 @@ const BasketItem = props => {
       const updatedBasket = basket
         .map(el => {
           const newAmount = amount - 1
-          return title === el.title && size === el.size ? {...el, amount: newAmount, total: price * newAmount} : el
+          return title === el.title && size === el.size
+            ? {...el, amount: newAmount, total: price * newAmount}
+            : el
         })
         .filter(el => el.amount > 0)
       incrementPizzaAmount(updatedBasket)

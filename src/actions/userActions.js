@@ -8,7 +8,9 @@ export const userActions = {
   logout,
   checkExistingToken,
   submitPizzaOrder,
-  getOrdersHistory
+  getOrdersHistory,
+  updateOrdersHistory,
+  addOrderToHistory
 }
 
 function login({email, password}) {
@@ -132,5 +134,19 @@ function getOrdersHistory(email) {
     return {
       type: userTypes.ORDERS_HISTORY_FAILURE
     }
+  }
+}
+
+function updateOrdersHistory(newHistory) {
+  return {
+    type: userTypes.ORDERS_HISTORY_UPDATE,
+    newHistory
+  }
+}
+
+function addOrderToHistory(order) {
+  return {
+    type: userTypes.ORDERS_HISTORY_ADD,
+    order
   }
 }

@@ -18,6 +18,7 @@ class ModalBasket extends Component {
 
   handleCloseModal = isOpen =>
     this.setState({
+      opacity: 1,
       open: isOpen
     })
 

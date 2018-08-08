@@ -1,7 +1,6 @@
 import React from 'react'
 import {Table} from 'semantic-ui-react'
 
-
 const HistoryPizzasRow = props => {
   const {pizza} = props
 

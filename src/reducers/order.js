@@ -11,6 +11,6 @@ export function order(state = {}, action) {
         hasSuccessOrder: false
       }
     default:
-      return state
+      return {}
   }
 }

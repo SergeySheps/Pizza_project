@@ -25,7 +25,7 @@ const Order = new Schema({
     }
   ],
   email: {type: String, required: true},
-  createdDate: {type: Date, default: Date.now()},
+  creationDate: {type: Date, default: Date.now()},
   totalPrice: {type: Number, required: true},
 })
 

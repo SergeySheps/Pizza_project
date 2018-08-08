@@ -5,7 +5,7 @@ import HistoryPizzasRow from './HistoryPizzasRow'
 import {userActions} from '../../actions/userActions'
 
 const HistoryItem = props => {
-  const {createdDate, pizzaData, userData, totalPrice, submitPizzaOrder} = props
+  const {creationDate, pizzaData, userData, totalPrice, submitPizzaOrder,addOrderToHistory} = props
 
   const handleOrderAgain = () => {
     const orderData = {
@@ -16,11 +16,12 @@ const HistoryItem = props => {
     }
 
     submitPizzaOrder(orderData)
+    addOrderToHistory(orderData)
   }
 
   return (
     <Table.Row>
-      <Table.Cell>{new Date(createdDate).toLocaleString()}</Table.Cell>
+      <Table.Cell>{new Date(creationDate).toLocaleString()}</Table.Cell>
       <Table.Cell>
         <Table textAlign="center" singleLine>
           <Table.Header>
@@ -69,7 +70,8 @@ const HistoryItem = props => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitPizzaOrder: values => dispatch(userActions.submitPizzaOrder(values))
+    submitPizzaOrder: values => dispatch(userActions.submitPizzaOrder(values)),
+    addOrderToHistory: values => dispatch(userActions.addOrderToHistory(values)),
   }
 }
 

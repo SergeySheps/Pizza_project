@@ -16,11 +16,11 @@ class ModalHistory extends Component {
     getOrdersHistory(email)
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    const {history, getOrdersHistory, email} = this.props
+  componentDidUpdate(prevProps, prevState) {
+    const {history,updateOrdersHistory,getOrdersHistory, email} = this.props
 
-    if (nextProps.history.length !== history.length) {
-      // getOrdersHistory(email) ToDO
+    if (prevProps.history.length !== history.length) {
+      updateOrdersHistory(history)
     }
   }
 
@@ -45,7 +45,7 @@ class ModalHistory extends Component {
           </Modal.Header>
           <Modal.Content scrolling className="modal-window__content">
             {!history ? (
-              <Icon name="spinner" loading/>
+              <Icon name="spinner" loading />
             ) : history.length > 0 ? (
               <HistoryItems history={history} />
             ) : (
@@ -70,7 +70,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getOrdersHistory: email => dispatch(userActions.getOrdersHistory(email))
+    getOrdersHistory: email => dispatch(userActions.getOrdersHistory(email)),
+    updateOrdersHistory: newHistory => dispatch(userActions.updateOrdersHistory(newHistory))
   }
 }
 

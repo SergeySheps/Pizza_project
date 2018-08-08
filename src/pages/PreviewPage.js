@@ -34,7 +34,7 @@ class Previewpage extends Component {
 
     return (
       <React.Fragment>
-        <div className="wrapperCheckToken" onClick={this.handleCheckToken}>
+        <div className="check-token-wrapper" onClick={this.handleCheckToken}>
           <Header />
           <Main />
         </div>

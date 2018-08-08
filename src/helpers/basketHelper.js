@@ -9,16 +9,17 @@ const checkRepeatingItem = (basket, item) => {
 
   if (!repeatingItem) {
     return
-  } else {
-    return basket.map(el => {
-      if (el === repeatingItem) {
-        const newAmount = el.amount + 1
-        return {...el, amount: newAmount, total: el.price * newAmount}
-      } else {
-        return el
-      }
-    })
   }
+
+  return basket.map(el => {
+    if (el === repeatingItem) {
+      const newAmount = el.amount + 1
+
+      return {...el, amount: newAmount, total: el.price * newAmount}
+    }
+
+    return el
+  })
 }
 
 export {checkRepeatingItem}

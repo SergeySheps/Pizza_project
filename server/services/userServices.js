@@ -61,7 +61,7 @@ async function login({email, password}) {
   }
 }
 
-async function writeOrderData(orderData) {
+async function saveOrderData(orderData) {
   mongoose.connect(
     config.connectionDBString,
     {useNewUrlParser: true}
@@ -91,6 +91,6 @@ module.exports = {
   createAccount,
   login,
   checkEqualEmail,
-  writeOrderData,
+  saveOrderData,
   getOrdersHistory
 }

@@ -34,8 +34,8 @@ function login(req, res) {
   )
 }
 
-function writeOrderData(req, res) {
-  userServices.writeOrderData(req.body).then(
+function saveOrderData(req, res) {
+  userServices.saveOrderData(req.body).then(
     order => {
       res.json({})
     },
@@ -59,6 +59,6 @@ function getOrdersHistory(req, res) {
 module.exports = {
   register,
   login,
-  writeOrderData,
+  saveOrderData,
   getOrdersHistory
 }

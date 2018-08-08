@@ -10,11 +10,13 @@ export const RadioSizesPrices = props => {
       {pizzaSizes.small} cm - {pizzaPrices.small} $
     </Label>
   )
+
   const LabelAverageSize = () => (
     <Label size="large" color="olive" className="card-radio-form-item">
       {pizzaSizes.average} cm - {pizzaPrices.average} $
     </Label>
   )
+  
   const LabelBigSize = () => (
     <Label size="large" color="olive" className="card-radio-form-item">
       {pizzaSizes.big} cm - {pizzaPrices.big} $

@@ -15,11 +15,11 @@ class ModalSubmitOrder extends Component {
     if (hasSuccessOrder !== nextProps.hasSuccessOrder) {
       handleCloseModal(isOpenModals)
 
-      if (nextProps.hasSuccessOrder) {
-        toastrNotification('success', toastrNotificationData.orderSuccess, {position: 'bottom-right'})
-      } else {
-        toastrNotification('error', toastrNotificationData.orderError, {position: 'bottom-right'})
-      }
+      nextProps.hasSuccessOrder
+        ? toastrNotification('success', toastrNotificationData.orderSuccess, {
+            position: 'bottom-right'
+          })
+        : toastrNotification('error', toastrNotificationData.orderError, {position: 'bottom-right'})
     }
   }
 

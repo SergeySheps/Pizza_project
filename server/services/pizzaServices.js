@@ -1,7 +1,7 @@
 const config = require('../config.json')
 const db = require('../helpers/dbHelpers')
 const mongoose = require('mongoose')
-const {numOfPaginationLimit} = require('../constants/constants')
+const {perPageLimit} = require('../constants/constants')
 const Ingredients = db.Ingredients
 const Pizza = db.Pizza
 
@@ -14,15 +14,15 @@ async function getProducts(req) {
   const queryStringValues = req.query
 
   return queryStringValues.numPage
-    ? await Pizza.paginate({}, {page: queryStringValues.numPage, limit: numOfPaginationLimit, lean: true}).then(
+    ? await Pizza.paginate({}, {page: queryStringValues.numPage, limit: perPageLimit, lean: true}).then(
         result => {
-          mongoose.connection.close().catch(()=>{})
+          mongoose.connection.close().catch(() => {})
 
           return result
         }
       )
     : await Ingredients.find({}).then(result => {
-        mongoose.connection.close().catch(()=>{})
+        mongoose.connection.close().catch(() => {})
 
         return result
       })

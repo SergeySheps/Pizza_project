@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Table} from 'semantic-ui-react'
-import HistryItem from './HistoryItem'
+import HistoryItem from './HistoryItem'
 import {connect} from 'react-redux'
 import '../../styles/history.css'
 
@@ -19,7 +19,7 @@ class HistoryItems extends Component {
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
-        <Table.Body>{history.map(item => <HistryItem {...item} key={item.id} />)}</Table.Body>
+        <Table.Body>{history.map(item => <HistoryItem {...item} key={item.id} />)}</Table.Body>
       </Table>
     )
   }

@@ -9,7 +9,6 @@ import {checkRepeatingItem} from '../../../../helpers/basketHelper'
 class PizzaCard extends Component {
   state = {
     amount: 1,
-
     size: pizzaSizes.small,
     price: pizzaPrices.small
   }

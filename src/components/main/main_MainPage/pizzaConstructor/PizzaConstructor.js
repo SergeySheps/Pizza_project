@@ -32,10 +32,12 @@ class PizzaConstructor extends Component {
     const {pizzaSizeIndex} = this.state
 
     if (nextState.pizzaSizeIndex !== pizzaSizeIndex) {
-      createPriceFromSize(
-        getProductsWithUpdatedPrice(products, pizzaSizeIndex, nextState.pizzaSizeIndex),
-        nextState.pizzaSizeIndex
-      )
+      if (products) {
+        createPriceFromSize(
+          getProductsWithUpdatedPrice(products, pizzaSizeIndex, nextState.pizzaSizeIndex),
+          nextState.pizzaSizeIndex
+        )
+      }
     }
   }
 
@@ -50,13 +52,9 @@ class PizzaConstructor extends Component {
   createListOfIngredients = (products, type) => {
     return (
       <ul className="all-ingredients-list">
-        {products ? (
-          products
-            .filter(ingredient => ingredient.type === type)
-            .map(ingredient => <Ingredient key={ingredient.id} {...ingredient} />)
-        ) : (
-          <Loader active />
-        )}
+        {products
+          .filter(ingredient => ingredient.type === type)
+          .map(ingredient => <Ingredient key={ingredient.id} {...ingredient} />)}
       </ul>
     )
   }
@@ -74,7 +72,13 @@ class PizzaConstructor extends Component {
   }
 
   addToPizzaBox = () => {
-    const {addedIngredients, basePizzaPrice, addBasketItem, basket, incrementPizzaAmount} = this.props
+    const {
+      addedIngredients,
+      basePizzaPrice,
+      addBasketItem,
+      basket,
+      incrementPizzaAmount
+    } = this.props
     const newPrice = basePizzaPrice + addedIngredients.reduce((prev, curr) => prev + curr.price, 0)
     const pizzaData = {
       urlImage: 'images_pizzas/base_pizza.jpg',
@@ -98,12 +102,15 @@ class PizzaConstructor extends Component {
   handleAddReduceIngredients = event => {
     const {classList} = event.target
 
-    if (classList.contains('button-add-inrgedient') || classList.contains('button-reduce-inrgedient')) {
+    if (
+      classList.contains('button-add-inrgedient') ||
+      classList.contains('button-reduce-inrgedient')
+    ) {
       const {addIngredient, products, addedIngredients, refreshIngredients} = this.props
 
       const ingredient = products.find(
-        ingridient =>
-          ingridient.name ===
+        ingredient =>
+          ingredient.name ===
           event.target
             .closest('.ingredient-list__ingredient-text-info')
             .querySelector('.ingredient-list__ingredient-name')
@@ -137,23 +144,33 @@ class PizzaConstructor extends Component {
     const panes = [
       {
         menuItem: pizzaTypeIngredients.meat,
-        render: () => <Tab.Pane>{this.createListOfIngredients(products, pizzaTypeIngredients.meat)}</Tab.Pane>
+        render: () => (
+          <Tab.Pane>{this.createListOfIngredients(products, pizzaTypeIngredients.meat)}</Tab.Pane>
+        )
       },
       {
         menuItem: pizzaTypeIngredients.cheese,
-        render: () => <Tab.Pane>{this.createListOfIngredients(products, pizzaTypeIngredients.cheese)}</Tab.Pane>
+        render: () => (
+          <Tab.Pane>{this.createListOfIngredients(products, pizzaTypeIngredients.cheese)}</Tab.Pane>
+        )
       },
       {
         menuItem: pizzaTypeIngredients.vegetables,
-        render: () => <Tab.Pane>{this.createListOfIngredients(products, pizzaTypeIngredients.vegetables)}</Tab.Pane>
+        render: () => (
+          <Tab.Pane>
+            {this.createListOfIngredients(products, pizzaTypeIngredients.vegetables)}
+          </Tab.Pane>
+        )
       },
       {
         menuItem: pizzaTypeIngredients.sauce,
-        render: () => <Tab.Pane>{this.createListOfIngredients(products, pizzaTypeIngredients.sauce)}</Tab.Pane>
+        render: () => (
+          <Tab.Pane>{this.createListOfIngredients(products, pizzaTypeIngredients.sauce)}</Tab.Pane>
+        )
       }
     ]
 
-    return (
+    return products ? (
       <div className="pizza-constructor">
         <RadioGroupSizes choosePizzaSize={this.choosePizzaSize} statePizzaConstuctor={this.state} />
         <div className="pizza-constructor__content">
@@ -167,7 +184,9 @@ class PizzaConstructor extends Component {
             {this.createListOfAddedIngredients()}
             <div className="pizza-constructor__content-total-price">
               Total price of pizza :{' '}
-              <b>{basePizzaPrice + addedIngredients.reduce((prev, curr) => prev + curr.price, 0)}$</b>
+              <b>
+                {basePizzaPrice + addedIngredients.reduce((prev, curr) => prev + curr.price, 0)}$
+              </b>
             </div>
             <Button className="add-to-pizza-box-button" primary onClick={this.addToPizzaBox}>
               Add to pizza box
@@ -175,6 +194,8 @@ class PizzaConstructor extends Component {
           </div>
         </div>
       </div>
+    ) : (
+      <Loader active />
     )
   }
 }
@@ -200,7 +221,8 @@ const mapDispatchToProps = dispatch => {
     addIngredient: ingredient => dispatch(pizzaActions.addIngredient(ingredient)),
     refreshIngredients: ingredients => dispatch(pizzaActions.refreshIngredients(ingredients)),
     addBasketItem: item => dispatch(pizzaActions.addBasketItem(item)),
-    incrementPizzaAmount: updatedBasket => dispatch(pizzaActions.incrementPizzaAmount(updatedBasket))
+    incrementPizzaAmount: updatedBasket =>
+      dispatch(pizzaActions.incrementPizzaAmount(updatedBasket))
   }
 }
 

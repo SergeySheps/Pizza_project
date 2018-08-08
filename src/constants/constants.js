@@ -32,6 +32,8 @@ export const pizzaIndexeSizes = {
 
 export const coefficientPrice = 0.5
 export const discountPercent = 10
+export const minDiscountOrderPrice = 50
+export const defaultPagesCount = 3
 
 export const pizzaTypeIngredients = {
   meat: 'Meat',
@@ -79,10 +81,10 @@ export const toastrNotificationData = {
   },
   orderError: {
     title: 'ERROR',
-    message: 'Order is not accepted'
+    message: 'Order has not been proceeded'
   },
   orderSuccess: {
     title: 'Order',
-    message: 'Order is accepted'
+    message: 'Order has been proceeded'
   },
 }

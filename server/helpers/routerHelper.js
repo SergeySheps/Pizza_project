@@ -8,7 +8,7 @@ router.get('/', pizzaController.getProducts)
 router.get('/main', verifyToken, pizzaController.getProducts)
 router.post('/registration', userController.register)
 router.post('/login', userController.login)
-router.post('/main', verifyToken, userController.writeOrderData)
+router.post('/main', verifyToken, userController.saveOrderData)
 router.post('/main/history', verifyToken, userController.getOrdersHistory)
 
 

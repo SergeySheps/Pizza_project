@@ -1,8 +1,10 @@
-import {coefficientPrice, discountPercent} from '../constants/constants'
+import {coefficientPrice, discountPercent, minDiscountOrderPrice} from '../constants/constants'
 
 const refreshAddedIngredients = (addedIngredients, products) =>
   addedIngredients.map(addedIngredient => {
-    const updatedBasePrice = products.find(ingredient => ingredient.name === addedIngredient.name).price
+    const updatedBasePrice = products.find(ingredient => ingredient.name === addedIngredient.name)
+      .price
+
     return {
       ...addedIngredient,
       basePrice: updatedBasePrice,
@@ -14,11 +16,11 @@ const getProductsWithUpdatedPrice = (products, pizzaSizeIndex, nextPizzaSizeInde
   products.map(product => {
     const newPriceIngredient = Object.assign({}, product)
     const coefficientDifferencePrice = Math.abs(nextPizzaSizeIndex - pizzaSizeIndex)
-    if (nextPizzaSizeIndex > pizzaSizeIndex) {
-      newPriceIngredient.price += coefficientDifferencePrice * coefficientPrice
-    } else {
-      newPriceIngredient.price -= coefficientDifferencePrice * coefficientPrice
-    }
+
+    nextPizzaSizeIndex > pizzaSizeIndex
+      ? (newPriceIngredient.price += coefficientDifferencePrice * coefficientPrice)
+      : (newPriceIngredient.price -= coefficientDifferencePrice * coefficientPrice)
+
     return newPriceIngredient
   })
 
@@ -49,7 +51,12 @@ const reduceIngredient = (addedIngredients, ingredient) =>
     .filter(item => item.amount > 0)
 
 const getPriceWithDiscount = price => {
-  return Number(String(price >= 50 ? price - (discountPercent * price) / 100 : price).slice(0, 5))
+  return Number(
+    String(price >= minDiscountOrderPrice ? price - (discountPercent * price) / 100 : price).slice(
+      0,
+      5
+    )
+  )
 }
 
 export {
