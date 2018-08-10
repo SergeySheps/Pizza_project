@@ -14,6 +14,30 @@ function getOrdersQueue(req, res) {
   )
 }
 
+function saveOrderAcceptor(req, res) {
+  employeeServices.saveOrderAcceptor(req.body).then(
+    resolve => {
+      res.json(resolve)
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
+function getOrdersInProgress(req, res) {
+  employeeServices.getOrdersInProgress(req.body).then(
+    orders => {
+      orders ? res.json(orders) : res.status(statusCodes.BadRequest).json({})
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
 module.exports = {
-  getOrdersQueue
+  getOrdersQueue,
+  saveOrderAcceptor,
+  getOrdersInProgress
 }

@@ -9,6 +9,7 @@ import {ordersHistory} from './ordersHistory'
 import {ordersQueue} from './ordersQueue'
 import {addedIngredients} from './addedIngredients'
 import {registration} from './registration'
+import {activeOrders} from './activeOrders'
 
 export default combineReducers({
   login,
@@ -20,5 +21,6 @@ export default combineReducers({
   order,
   ordersHistory,
   ordersQueue,
+  activeOrders,
   toastr: toastrReducer
 })

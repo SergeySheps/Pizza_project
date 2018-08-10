@@ -15,6 +15,35 @@ async function getOrdersQueue() {
   })
 }
 
+async function getOrdersInProgress({email}) {
+  mongoose.connect(
+    config.connectionDBString,
+    {useNewUrlParser: true}
+  )
+
+  return await Order.find({orderAcceptor: email, isInProgress: true}).then(res => {
+    mongoose.connection.close().catch(() => {})
+    return res
+  })
+}
+
+async function saveOrderAcceptor(orderData) {
+  mongoose.connect(
+    config.connectionDBString,
+    {useNewUrlParser: true}
+  )
+
+  return await Order.findOneAndUpdate(
+    {_id: orderData.id},
+    {isInProgress: true, orderAcceptor: orderData.email}
+  ).then(res => {
+    mongoose.connection.close().catch(() => {})
+    return res
+  })
+}
+
 module.exports = {
-  getOrdersQueue
+  getOrdersQueue,
+  getOrdersInProgress,
+  saveOrderAcceptor
 }

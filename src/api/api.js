@@ -60,9 +60,23 @@ const postRequestWithToken = (url, data) => {
   return fetch(url, requestOptions).then(handleResponse)
 }
 
+const putRequestWithToken = (url, data) => {
+  const requestOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': getLocalStorageItem("token")
+    },
+    body: JSON.stringify(data)
+  }
+
+  return fetch(url, requestOptions).then(handleResponse)
+}
+
 export default {
   postRequestWithToken,
   postRequestWithoutToken,
   getRequestWithoutToken,
-  getRequestWithToken
+  getRequestWithToken,
+  putRequestWithToken
 }

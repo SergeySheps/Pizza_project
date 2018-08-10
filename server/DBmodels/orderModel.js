@@ -28,6 +28,8 @@ const Order = new Schema({
   creationDate: {type: Date, default: Date.now()},
   totalPrice: {type: Number, required: true},
   isCompleted: {type: Boolean, default: false},
+  isInProgress: {type: Boolean, default: false},
+  orderAcceptor: {type: String, default: ""},
 })
 
 Order.set('toJSON', {virtuals: true})

@@ -1,23 +1,11 @@
 import React from 'react'
-import {Table, Button, Icon} from 'semantic-ui-react'
+import {Table, Checkbox} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import QueueIngredientsRow from './QueueIngredientsRow'
 import {userActions} from '../../actions/userActions'
 
 const QueueItem = props => {
   const {title, size, amount, ingredients} = props
-
-  // const handleOrderAgain = () => {
-  //   const orderData = {
-  //     userData: props.userData,
-  //     pizzaData: props.pizzaData,
-  //     email: props.email,
-  //     totalPrice: props.totalPrice
-  //   }
-
-  //   submitPizzaOrder(orderData)
-  //   addOrderToHistory(orderData)
-  // }
 
   return (
     <Table.Row>
@@ -37,15 +25,10 @@ const QueueItem = props => {
           </Table.Body>
         </Table>
       </Table.Cell>
-      <Table.Cell>
-        x {amount}
-      </Table.Cell>
+      <Table.Cell>x {amount}</Table.Cell>
       <Table.Cell>{size} cm</Table.Cell>
       <Table.Cell>
-        <Button icon labelPosition="left" positive >
-          <Icon name="angle right" />
-          Proceed
-        </Button>
+        <Checkbox toggle />
       </Table.Cell>
     </Table.Row>
   )

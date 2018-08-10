@@ -20,9 +20,9 @@ class QueueItems extends Component {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {queue.map(item => (
-            <QueueItem {...item} key={item.id} />
-          ))}
+          {queue.length > 0
+            ? queue.map(item => <QueueItem {...item} key={item.id} />)
+            : ''}
         </Table.Body>
       </Table>
     )

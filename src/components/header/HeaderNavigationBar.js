@@ -3,7 +3,7 @@ import {Button, Menu, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {userActions} from '../../actions/userActions'
-import '../../styles/menu.css'
+import {employeeActions} from '../../actions/employeeActions'
 import {pizzaActions} from '../../actions/pizzaActions'
 import ModalBasket from '../modals/ModalBasket'
 
@@ -67,6 +67,7 @@ const mapDispatchToProps = dispatch => {
     logout: () => {
       dispatch(pizzaActions.clear())
       dispatch(userActions.logout())
+      dispatch(employeeActions.clear())
     }
   }
 }
