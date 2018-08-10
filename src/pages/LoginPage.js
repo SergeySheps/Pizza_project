@@ -9,7 +9,7 @@ import {toastrNotificationData} from '../constants/constants'
 class LoginPage extends Component {
   componentDidUpdate(prevProps, prevState) {
     const {hasLoginFailed, logout} = this.props
-    
+
     if (hasLoginFailed) {
       toastrNotification('error', toastrNotificationData.loginError)
       logout()
@@ -17,10 +17,10 @@ class LoginPage extends Component {
   }
 
   render() {
-    const {login, isLoggedIn} = this.props
+    const {login, isLoggedIn, isEmployee} = this.props
 
     if (isLoggedIn) {
-      return <Redirect to="/main" />
+      return isEmployee ? <Redirect to="/cook" /> : <Redirect to="/main" />
     }
 
     return (
@@ -34,11 +34,12 @@ class LoginPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {isLoggedIn, hasLoginFailed} = state.login
+  const {isLoggedIn, hasLoginFailed, isEmployee} = state.login
 
   return {
     isLoggedIn,
-    hasLoginFailed
+    hasLoginFailed,
+    isEmployee
   }
 }
 

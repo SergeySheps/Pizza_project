@@ -10,12 +10,12 @@ export function login(state = initialState, action) {
     case userTypes.LOGIN_REQUEST:
       return {
         hasToken: !!getLocalStorageItem('token'),
-        user: action.user
+        ...action.user
       }
     case userTypes.LOGIN_SUCCESS:
       return {
         isLoggedIn: true,
-        user: action.user
+        ...action.user
       }
     case userTypes.LOGIN_FAILURE:
       return {

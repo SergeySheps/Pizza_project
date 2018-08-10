@@ -27,7 +27,7 @@
     "eject": "react-scripts eject"
   },
   "prettier": {
-    "printWidth": 100,
+    "printWidth": 90,
     "tabWidth": 2,
     "useTabs": false,
     "semi": false,

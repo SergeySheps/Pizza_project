@@ -6,6 +6,7 @@ import {pizza} from './pizza'
 import {basket} from './basket'
 import {order} from './order'
 import {ordersHistory} from './ordersHistory'
+import {ordersQueue} from './ordersQueue'
 import {addedIngredients} from './addedIngredients'
 import {registration} from './registration'
 
@@ -18,5 +19,6 @@ export default combineReducers({
   basket,
   order,
   ordersHistory,
+  ordersQueue,
   toastr: toastrReducer
 })

@@ -27,6 +27,7 @@ const Order = new Schema({
   email: {type: String, required: true},
   creationDate: {type: Date, default: Date.now()},
   totalPrice: {type: Number, required: true},
+  isCompleted: {type: Boolean, default: false},
 })
 
 Order.set('toJSON', {virtuals: true})

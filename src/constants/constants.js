@@ -34,6 +34,7 @@ export const coefficientPrice = 0.5
 export const discountPercent = 10
 export const minDiscountOrderPrice = 50
 export const defaultPagesCount = 3
+export const workTimeFormat = "hh:mm:ss"
 
 export const pizzaTypeIngredients = {
   meat: 'Meat',
@@ -55,6 +56,7 @@ export const routs = {
   checkEqualEmail: `${url}/registration?isEqual=true`,
   main: `${url}/main`,
   history: `${url}/main/history`,
+  cook: `${url}/cook`,
   preview: `${url}`
 }
 

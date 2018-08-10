@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import Header from '../components/header/Header'
-import Main from '../components/main/main_MainPage/Main'
+import Main from '../components/main/mainCookPage/CookMain'
 import {userActions} from '../actions/userActions'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {getLocalStorageItem} from '../helpers/authorizationHelper'
 
-class MainPage extends Component {
+class CookPage extends Component {
   state = {
     hasToken: true
   }
@@ -31,8 +31,8 @@ class MainPage extends Component {
       return <Redirect to="/login" />
     }
 
-    if (isLoggedIn && isEmployee) {
-      return <Redirect to="/cook" />
+    if (isLoggedIn && !isEmployee) {
+      return <Redirect to="/main" />
     }
 
     return (
@@ -63,4 +63,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainPage)
+)(CookPage)

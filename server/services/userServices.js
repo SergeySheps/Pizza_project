@@ -20,7 +20,7 @@ async function createAccount(userParam) {
   }
 
   return await user.save().then(res => {
-    mongoose.connection.close()
+    mongoose.connection.close().catch(() => {})
     return res
   })
 }
@@ -32,7 +32,7 @@ async function checkEqualEmail(userParam) {
   )
 
   return (await User.findOne({email: userParam.email}).then(res => {
-    mongoose.connection.close()
+    mongoose.connection.close().catch(() => {})
     return res
   }))
     ? {equal: true}
@@ -46,7 +46,7 @@ async function login({email, password}) {
   )
 
   const user = await User.findOne({email}).then(res => {
-    mongoose.connection.close()
+    mongoose.connection.close().catch(() => {})
     return res
   })
 
@@ -70,7 +70,7 @@ async function saveOrderData(orderData) {
   const order = new Order(orderData)
 
   return await order.save().then(res => {
-    mongoose.connection.close()
+    mongoose.connection.close().catch(() => {})
     return res
   })
 }
