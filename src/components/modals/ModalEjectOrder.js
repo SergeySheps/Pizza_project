@@ -8,7 +8,16 @@ class ModalEjectOrder extends Component {
     const {ordersQueue} = this.props
 
     return (
-      <Modal dimmer="blurring" trigger={<Table.Cell selectable className="table-cell_eject-order"> Click for view</Table.Cell>} size="large" closeIcon>
+      <Modal
+        dimmer="blurring"
+        trigger={
+          <Table.Cell selectable className="table-cell_eject-order">
+            {' '}
+            Click for view
+          </Table.Cell>
+        }
+        size="large"
+        closeIcon>
         <Modal.Header>
           <Icon name="ordered list" /> Order
         </Modal.Header>

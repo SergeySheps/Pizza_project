@@ -1,6 +1,5 @@
 import {userTypes} from '../actions/types'
-import {getLocalStorageItem} from "../helpers/authorizationHelper"
-
+import {getLocalStorageItem} from '../helpers/authorizationHelper'
 
 const user = JSON.parse(getLocalStorageItem('user'))
 const initialState = user ? {isLoggedIn: true, ...user} : {}
@@ -22,8 +21,6 @@ export function login(state = initialState, action) {
         isLoggedIn: false,
         hasLoginFailed: true
       }
-    case userTypes.LOGOUT:
-      return {}
     default:
       return state
   }

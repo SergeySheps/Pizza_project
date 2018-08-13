@@ -4,7 +4,10 @@ import {routs} from '../constants/constants'
 export const employeeService = {
   getOrdersQueue,
   saveOrderAcceptor,
-  getOrdersInProgress
+  getOrdersInProgress,
+  saveReadyOrder,
+  getCookedOrdersHistory,
+  deleteOrderFromQueue
 }
 
 function getOrdersQueue() {
@@ -12,9 +15,22 @@ function getOrdersQueue() {
 }
 
 function saveOrderAcceptor(acceptorData) {
-  return api.putRequestWithToken(routs.cook,acceptorData)
+  return api.putRequestWithToken(routs.cook, acceptorData)
 }
 
 function getOrdersInProgress(email) {
-  return api.postRequestWithToken(routs.cook,{email})
+  return api.postRequestWithToken(routs.cook, {email})
+}
+
+function saveReadyOrder(orderData) {
+  return api.postRequestWithToken(routs.cook + `?isSaveReadyOrder=true`, orderData)
+}
+
+function deleteOrderFromQueue(orderData) {
+  return api.deleteRequestWithToken(routs.cook, orderData)
+}
+
+function getCookedOrdersHistory(email) {
+  console.log(email,"qwe")
+  return api.postRequestWithToken(routs.cookHistory, {email})
 }

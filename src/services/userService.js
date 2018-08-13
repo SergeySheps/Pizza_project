@@ -42,5 +42,5 @@ function checkEqualEmail({email}) {
 }
 
 function getOrdersHistory(email) {
-  return api.postRequestWithToken(routs.history,{email})
+  return api.postRequestWithToken(routs.mainHistory,{email})
 }

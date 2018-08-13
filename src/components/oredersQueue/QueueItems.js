@@ -6,7 +6,7 @@ import '../../styles/history.css'
 
 class QueueItems extends Component {
   render() {
-    const {queue} = this.props
+    const {queue, isCookHistory, finishOrderDate} = this.props
 
     return (
       <Table fixed textAlign="center">
@@ -16,12 +16,22 @@ class QueueItems extends Component {
             <Table.HeaderCell>Ingredients</Table.HeaderCell>
             <Table.HeaderCell>Amount</Table.HeaderCell>
             <Table.HeaderCell>Size</Table.HeaderCell>
-            <Table.HeaderCell />
+            {!isCookHistory ? (
+              <Table.HeaderCell />
+            ) : (
+              <Table.HeaderCell>Finish date</Table.HeaderCell>
+            )}
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {queue.length > 0
-            ? queue.map(item => <QueueItem {...item} key={item.id} />)
+            ? queue.map((item, ind) => (
+                <QueueItem
+                  {...item}
+                  key={item.id || ind}
+                  finishOrderDate={finishOrderDate}
+                />
+              ))
             : ''}
         </Table.Body>
       </Table>

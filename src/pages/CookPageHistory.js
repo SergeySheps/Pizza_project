@@ -1,28 +1,27 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import ModalHistory from '../components/modals/ModalHistory'
+import ModalCookedOrders from '../components/modals/ModalCookedOrders'
 
 
-class MainPage extends Component {
+class CookPageHistory extends Component {
   render() {
     const {isLoggedIn,isEmployee} = this.props
 
-    if (isLoggedIn && isEmployee) {
-      return <Redirect to="/cook" />
+    if (isLoggedIn && !isEmployee) {
+      return <Redirect to="/main" />
     }
     
-    return <ModalHistory />
+    return <ModalCookedOrders />
   }
 }
 
 function mapStateToProps(state) {
   const {isLoggedIn,isEmployee} = state.login
-  
   return {
     isLoggedIn,
     isEmployee
   }
 }
 
-export default connect(mapStateToProps)(MainPage)
+export default connect(mapStateToProps)(CookPageHistory)

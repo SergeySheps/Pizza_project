@@ -17,7 +17,7 @@ class ModalHistory extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const {history,updateOrdersHistory,getOrdersHistory, email} = this.props
+    const {history,updateOrdersHistory} = this.props
 
     if (prevProps.history.length !== history.length) {
       updateOrdersHistory(history)

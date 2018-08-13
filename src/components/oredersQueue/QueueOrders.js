@@ -5,18 +5,14 @@ import {connect} from 'react-redux'
 import '../../styles/order.css'
 
 class QueueOrders extends Component {
-  transformQueue = queue => {
+  sortQueue = queue => {
     return queue.length > 1
-      ? queue.sort((a, b) => {
-          return new Date(a.creationDate) - new Date(b.creationDate)
-        })
+      ? queue.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate))
       : queue
   }
 
   render() {
-    const {queue} = this.props
-    console.log(queue, 'before')
-    console.log(this.transformQueue(queue), 'after')
+    const {queue, handleClose} = this.props
 
     return (
       <Table fixed textAlign="center">
@@ -28,8 +24,8 @@ class QueueOrders extends Component {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {this.transformQueue(queue).map(item => (
-            <QueueOrder {...item} key={item.id} />
+          {this.sortQueue(queue).map(item => (
+            <QueueOrder {...item} key={item.id} handleClose={handleClose} />
           ))}
         </Table.Body>
       </Table>

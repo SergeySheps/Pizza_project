@@ -11,12 +11,14 @@ const QueueOrder = props => {
     saveOrderAcceptor,
     getOrdersInProgress,
     email,
-    id
+    id,
+    handleClose
   } = props
 
   const handleProceedClick = () => {
     saveOrderAcceptor({email, id})
     getOrdersInProgress(email)
+    handleClose()
   }
 
   return (

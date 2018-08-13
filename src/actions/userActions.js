@@ -43,7 +43,7 @@ function login({email, password}) {
 function logout() {
   userService.logout()
   return {
-    type: userTypes.LOGOUT
+    type: userTypes.USER_LOGOUT
   }
 }
 

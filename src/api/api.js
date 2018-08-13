@@ -73,10 +73,24 @@ const putRequestWithToken = (url, data) => {
   return fetch(url, requestOptions).then(handleResponse)
 }
 
+const deleteRequestWithToken = (url, data) => {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': getLocalStorageItem("token")
+    },
+    body: JSON.stringify(data)
+  }
+
+  return fetch(url, requestOptions).then(handleResponse)
+}
+
 export default {
   postRequestWithToken,
   postRequestWithoutToken,
   getRequestWithoutToken,
   getRequestWithToken,
-  putRequestWithToken
+  putRequestWithToken,
+  deleteRequestWithToken
 }

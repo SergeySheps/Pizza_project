@@ -65,9 +65,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     logout: () => {
-      dispatch(pizzaActions.clear())
       dispatch(userActions.logout())
-      dispatch(employeeActions.clear())
     }
   }
 }

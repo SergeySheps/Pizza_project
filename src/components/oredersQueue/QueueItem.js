@@ -5,7 +5,7 @@ import QueueIngredientsRow from './QueueIngredientsRow'
 import {userActions} from '../../actions/userActions'
 
 const QueueItem = props => {
-  const {title, size, amount, ingredients} = props
+  const {title, size, amount, ingredients, finishOrderDate} = props
 
   return (
     <Table.Row>
@@ -28,7 +28,11 @@ const QueueItem = props => {
       <Table.Cell>x {amount}</Table.Cell>
       <Table.Cell>{size} cm</Table.Cell>
       <Table.Cell>
-        <Checkbox toggle />
+        {finishOrderDate ? (
+          new Date(finishOrderDate).toLocaleString()
+        ) : (
+          <Checkbox toggle />
+        )}
       </Table.Cell>
     </Table.Row>
   )

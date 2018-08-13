@@ -55,8 +55,9 @@ export const routs = {
   login: `${url}/login`,
   checkEqualEmail: `${url}/registration?isEqual=true`,
   main: `${url}/main`,
-  history: `${url}/main/history`,
+  mainHistory: `${url}/main/history`,
   cook: `${url}/cook`,
+  cookHistory: `${url}/cook/history`,
   preview: `${url}`
 }
 

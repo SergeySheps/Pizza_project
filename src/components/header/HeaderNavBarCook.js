@@ -22,7 +22,7 @@ class HeaderNavBarCook extends Component {
             <Link to="/cook/history">
               <Button icon labelPosition="left" color="vk">
                 <Icon name="clipboard list" />
-                Cooked pizzas
+                Cooked orders
               </Button>
             </Link>
           </Menu.Item>
@@ -51,9 +51,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     logout: () => {
-      dispatch(pizzaActions.clear())
       dispatch(userActions.logout())
-      dispatch(employeeActions.clear())
     }
   }
 }

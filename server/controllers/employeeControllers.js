@@ -25,6 +25,21 @@ function saveOrderAcceptor(req, res) {
   )
 }
 
+function deleteOrderFromQueue(req, res) {
+  employeeServices.deleteOrderFromQueue(req.body).then(
+    resolve => {
+      res.json(resolve)
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
+function postCookRequests(req, res) {
+  req.query.isSaveReadyOrder ? saveReadyOrder(req, res) : getOrdersInProgress(req, res)
+}
+
 function getOrdersInProgress(req, res) {
   employeeServices.getOrdersInProgress(req.body).then(
     orders => {
@@ -36,8 +51,34 @@ function getOrdersInProgress(req, res) {
   )
 }
 
+function saveReadyOrder(req, res) {
+  employeeServices.saveReadyOrder(req.body).then(
+    resolve => {
+      res.json(resolve)
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
+function getCookedOrdersHistory(req, res) {
+  employeeServices.getCookedOrdersHistory(req.body).then(
+    history => {
+      history
+        ? res.json(history)
+        : res.status(statusCodes.BadRequest).json({message: error.message})
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
 module.exports = {
   getOrdersQueue,
   saveOrderAcceptor,
-  getOrdersInProgress
+  postCookRequests,
+  deleteOrderFromQueue,
+  getCookedOrdersHistory
 }
