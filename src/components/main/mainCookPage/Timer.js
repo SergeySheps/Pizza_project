@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
-import {compose} from 'redux'
-import {workTimeFormat} from '../../../constants/constants'
+import {connect} from 'react-redux'
+import {toDateTime, getTimeSinceStart} from '../../../helpers/dateTimeHelper'
+import {
+  setLocalStorageItem,
+  getLocalStorageItem
+} from '../../../helpers/authorizationHelper'
 
 class Timer extends Component {
   state = {
@@ -11,6 +15,7 @@ class Timer extends Component {
 
   componentWillMount = () => {
     const timer = setInterval(this.tick, 1000)
+
     this.setState({
       startTime: Date.now(),
       timer
@@ -26,62 +31,34 @@ class Timer extends Component {
     }
   }
 
-  toDateTime = millisecs => {
-    let date = new Date(1970, 0, 1)
-    date.setMilliseconds(millisecs)
-    return date
-  }
-
   tick = () => {
+    const {timeJournal} = this.props
+
     this.setState({
-      timeSinceStart: this.toDateTime(Date.now() - this.state.startTime)
+      timeSinceStart: toDateTime(
+        Date.now() -
+          this.state.startTime +
+          (timeJournal
+            ? new Date(timeJournal.finishTime).getTime() -
+              new Date(timeJournal.startTime).getTime()
+            : 0)
+      )
     })
-  }
-
-  correctingTimeLook = unitTime => {
-    return String(unitTime).length === 2 ? unitTime : '0' + unitTime
-  }
-
-  getTimerHours = workTimeFormat => {
-    const {timeSinceStart} = this.state
-
-    return workTimeFormat.replace(
-      'hh',
-      this.correctingTimeLook(timeSinceStart.getHours())
-    )
-  }
-
-  getTimerMinutes = workTimeFormat => {
-    const {timeSinceStart} = this.state
-
-    return workTimeFormat.replace(
-      'mm',
-      this.correctingTimeLook(timeSinceStart.getMinutes())
-    )
-  }
-
-  getTimerSeconds = workTimeFormat => {
-    const {timeSinceStart} = this.state
-
-    return workTimeFormat.replace(
-      'ss',
-      this.correctingTimeLook(timeSinceStart.getSeconds())
-    )
-  }
-
-  getTimeSinceStart = () => {
-    return compose(
-      this.getTimerHours,
-      this.getTimerMinutes,
-      this.getTimerSeconds
-    )(workTimeFormat)
   }
 
   render() {
     const {timeSinceStart} = this.state
 
-    return <span>{timeSinceStart ? this.getTimeSinceStart() : '00:00:00'}</span>
+    return <span>{timeSinceStart ? getTimeSinceStart(timeSinceStart) : ''}</span>
   }
 }
 
-export default Timer
+const mapStateToProps = state => {
+  const timeJournal = state.timeJournal
+
+  return {
+    timeJournal
+  }
+}
+
+export default connect(mapStateToProps)(Timer)

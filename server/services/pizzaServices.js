@@ -8,7 +8,8 @@ const Pizza = db.Pizza
 async function getProducts(req) {
   mongoose.connect(
     config.connectionDBString,
-    {useNewUrlParser: true}
+    {useNewUrlParser: true,
+      reconnectTries: 10}
   )
 
   const queryStringValues = req.query

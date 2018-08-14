@@ -7,7 +7,10 @@ export const employeeService = {
   getOrdersInProgress,
   saveReadyOrder,
   getCookedOrdersHistory,
-  deleteOrderFromQueue
+  deleteOrderFromQueue,
+  saveStartTime,
+  saveFinishTime,
+  getStartTime
 }
 
 function getOrdersQueue() {
@@ -31,6 +34,17 @@ function deleteOrderFromQueue(orderData) {
 }
 
 function getCookedOrdersHistory(email) {
-  console.log(email,"qwe")
   return api.postRequestWithToken(routs.cookHistory, {email})
+}
+
+function saveStartTime(timeData) {
+  return api.postRequestWithToken(routs.cook + `?isSaveStartWorkTime=true`, timeData)
+}
+
+function saveFinishTime(timeData) {
+  return api.putRequestWithToken(routs.cook + `?isSaveFinishWorkTime=true`, timeData)
+}
+
+function getStartTime(email) {
+  return api.postRequestWithToken(routs.cook + `?isGetStartWorkTime=true`, {email})
 }

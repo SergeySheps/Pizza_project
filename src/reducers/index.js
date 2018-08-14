@@ -7,6 +7,7 @@ import {pizza} from './pizza'
 import {basket} from './basket'
 import {cookedOrders} from './cookedOrders'
 import {order} from './order'
+import {timeJournal} from './timeJournal'
 import {ordersHistory} from './ordersHistory'
 import {ordersQueue} from './ordersQueue'
 import {addedIngredients} from './addedIngredients'
@@ -25,6 +26,7 @@ const appReducer = combineReducers({
   ordersQueue,
   activeOrders,
   cookedOrders,
+  timeJournal,
   toastr: toastrReducer
 })
 

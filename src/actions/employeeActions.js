@@ -8,6 +8,9 @@ export const employeeActions = {
   saveReadyOrder,
   deleteOrderFromQueue,
   getCookedOrdersHistory,
+  saveStartTime,
+  saveFinishTime,
+  getStartTime,
   clear
 }
 
@@ -65,40 +68,15 @@ function getCookedOrdersHistory(email) {
 
 function saveOrderAcceptor(acceptorData) {
   return dispatch => {
-    employeeService.saveOrderAcceptor(acceptorData).then(
-      queue => {
-        // dispatch(getOrdersQueueSuccess(queue))
-      },
-      error => {
-        // dispatch(getOrdersQueueFailure())
-      }
-    )
+    employeeService.saveOrderAcceptor(acceptorData)
   }
-
-  // function getOrdersQueueSuccess(queue) {
-  //   return {
-  //     type: employeeTypes.ORDERS_QUEUE_SUCCESS,
-  //     queue
-  //   }
-  // }
-
-  // function getOrdersQueueFailure() {
-  //   return {
-  //     type: employeeTypes.ORDERS_QUEUE_FAILURE
-  //   }
-  // }
 }
 
 function deleteOrderFromQueue(orderData) {
   return dispatch => {
-    employeeService.deleteOrderFromQueue(orderData).then(
-      deletedOrder => {
-        dispatch(deleteOrderFromQueueSuccess(deletedOrder))
-      },
-      error => {
-        // dispatch(getOrdersQueueFailure())
-      }
-    )
+    employeeService.deleteOrderFromQueue(orderData).then(deletedOrder => {
+      dispatch(deleteOrderFromQueueSuccess(deletedOrder))
+    })
   }
 
   function deleteOrderFromQueueSuccess(deletedOrder) {
@@ -107,50 +85,19 @@ function deleteOrderFromQueue(orderData) {
       deletedOrder
     }
   }
-
-  // function getOrdersQueueFailure() {
-  //   return {
-  //     type: employeeTypes.ORDERS_QUEUE_FAILURE
-  //   }
-  // }
 }
 
 function saveReadyOrder(orderData) {
   return dispatch => {
-    employeeService.saveReadyOrder(orderData).then(
-      queue => {
-        // dispatch(getOrdersQueueSuccess(queue))
-      },
-      error => {
-        // dispatch(getOrdersQueueFailure())
-      }
-    )
+    employeeService.saveReadyOrder(orderData)
   }
-
-  // function getOrdersQueueSuccess(queue) {
-  //   return {
-  //     type: employeeTypes.ORDERS_QUEUE_SUCCESS,
-  //     queue
-  //   }
-  // }
-
-  // function getOrdersQueueFailure() {
-  //   return {
-  //     type: employeeTypes.ORDERS_QUEUE_FAILURE
-  //   }
-  // }
 }
 
 function getOrdersInProgress(email) {
   return dispatch => {
-    employeeService.getOrdersInProgress(email).then(
-      orders => {
-        dispatch(getOrdersInProgress(orders))
-      },
-      error => {
-        // dispatch(getOrdersQueueFailure())
-      }
-    )
+    employeeService.getOrdersInProgress(email).then(orders => {
+      dispatch(getOrdersInProgress(orders))
+    })
   }
 
   function getOrdersInProgress(orders) {
@@ -159,12 +106,44 @@ function getOrdersInProgress(email) {
       orders
     }
   }
+}
 
-  // function getOrdersQueueFailure() {
-  //   return {
-  //     type: employeeTypes.ORDERS_QUEUE_FAILURE
-  //   }
-  // }
+function saveStartTime(timeData) {
+  return dispatch => {
+    employeeService.saveStartTime(timeData)
+  }
+}
+
+function saveFinishTime(timeData) {
+  return dispatch => {
+    employeeService.saveFinishTime(timeData)
+  }
+}
+
+function getStartTime(email) {
+  return dispatch => {
+    employeeService.getStartTime(email).then(
+      time => {
+        dispatch(getStartTimeSuccess(time))
+      },
+      error => {
+        dispatch(getStartTimeFailure())
+      }
+    )
+  }
+
+  function getStartTimeSuccess(time) {
+    return {
+      type: employeeTypes.TIME_START_SUCCESS,
+      time
+    }
+  }
+
+  function getStartTimeFailure() {
+    return {
+      type: employeeTypes.TIME_START_FAILURE,
+    }
+  }
 }
 
 function clear() {

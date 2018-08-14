@@ -3,6 +3,7 @@ const db = require('../helpers/dbHelpers')
 const mongoose = require('mongoose')
 const Order = db.Order
 const ReadyOrder = db.ReadyOrder
+const TimeJournal = db.TimeJournal
 
 async function getOrdersQueue() {
   mongoose.connect(
@@ -88,11 +89,87 @@ async function getCookedOrdersHistory({email}) {
   })
 }
 
+async function saveStartTime(timeData) {
+  mongoose.connect(
+    config.connectionDBString,
+    {useNewUrlParser: true}
+  )
+  const repeatingQuery = await TimeJournal.find({
+    email: timeData.email,
+    todaysDate: new Date(Date.now()).toLocaleDateString()
+  })
+  
+  if (repeatingQuery.length > 0){
+    return {}
+  }
+  const timeJournal = new TimeJournal(timeData)
+
+  return await timeJournal.save().then(res => {
+    mongoose.connection.close().catch(() => {})
+    return res
+  })
+}
+
+async function saveFinishTime(timeData) {
+  mongoose.connect(
+    config.connectionDBString,
+    {useNewUrlParser: true}
+  )
+
+  return await TimeJournal.findOneAndUpdate(
+    {email: timeData.email},
+    {finishTime: timeData.finishTime}
+  ).then(res => {
+    mongoose.connection.close().catch(() => {})
+    return res
+  })
+}
+
+async function getStartTime({email}) {
+  mongoose.connect(
+    config.connectionDBString,
+    {useNewUrlParser: true}
+  )
+
+  return await TimeJournal.findOne({
+    email,
+    todaysDate: new Date(Date.now()).toLocaleDateString()
+  }).then(
+    result => {
+      mongoose.connection.close().catch(() => {})
+      return result
+    },
+    error => {
+      return {}
+    }
+  )
+}
+
+async function showDayReport({email}) {
+  mongoose.connect(
+    config.connectionDBString,
+    {useNewUrlParser: true}
+  )
+  ///////////new Date(Date.now()).toLocaleDateString()////////
+  const qwe = TimeJournal.find({
+    minNum: {$gte: 50},
+    maxNum: {$lte: 100}
+  })
+  return await ReadyOrder.find({cookEmail: email}).then(result => {
+    mongoose.connection.close().catch(() => {})
+    return result
+  })
+}
+
 module.exports = {
   getOrdersQueue,
   getOrdersInProgress,
   saveOrderAcceptor,
   saveReadyOrder,
   deleteOrderFromQueue,
-  getCookedOrdersHistory
+  getCookedOrdersHistory,
+  saveStartTime,
+  saveFinishTime,
+  showDayReport,
+  getStartTime
 }

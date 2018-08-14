@@ -37,11 +37,52 @@ function deleteOrderFromQueue(req, res) {
 }
 
 function postCookRequests(req, res) {
-  req.query.isSaveReadyOrder ? saveReadyOrder(req, res) : getOrdersInProgress(req, res)
+  switch (true) { 
+    case !!req.query.isSaveReadyOrder: {
+      saveReadyOrder(req, res)
+      break
+    }
+    case !!req.query.isSaveStartWorkTime: {
+      saveStartTime(req, res)
+      break
+    }
+    case !!req.query.isGetStartWorkTime: {
+      getStartTime(req, res)
+      break
+    }
+    case !!req.query.isShowDayReport: {
+      showDayReport(req, res)
+      break
+    }
+    default:
+      getOrdersInProgress(req, res)
+  }
+}
+
+function putCookRequests(req, res) {
+  switch (true) {
+    case !!req.query.isSaveFinishWorkTime: {
+      saveFinishTime(req, res)
+      break
+    }
+    default:
+      saveOrderAcceptor(req, res)
+  }
 }
 
 function getOrdersInProgress(req, res) {
   employeeServices.getOrdersInProgress(req.body).then(
+    orders => {
+      orders ? res.json(orders) : res.status(statusCodes.BadRequest).json({})
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
+function showDayReport(req, res) {
+  employeeServices.showDayReport(req.body).then(
     orders => {
       orders ? res.json(orders) : res.status(statusCodes.BadRequest).json({})
     },
@@ -62,12 +103,47 @@ function saveReadyOrder(req, res) {
   )
 }
 
+function saveStartTime(req, res) {
+  employeeServices.saveStartTime(req.body).then(
+    resolve => {
+      res.json(resolve)
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
+function saveFinishTime(req, res) {
+  employeeServices.saveFinishTime(req.body).then(
+    resolve => {
+      res.json(resolve)
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
+function getStartTime(req, res) {
+  employeeServices.getStartTime(req.body).then(
+    time => {
+      time
+        ? res.json(time)
+        : res.status(statusCodes.BadRequest).json({})
+    },
+    error => {
+      res.status(statusCodes.InternalServerError).json({message: error.message})
+    }
+  )
+}
+
 function getCookedOrdersHistory(req, res) {
   employeeServices.getCookedOrdersHistory(req.body).then(
     history => {
       history
         ? res.json(history)
-        : res.status(statusCodes.BadRequest).json({message: error.message})
+        : res.status(statusCodes.BadRequest).json({})
     },
     error => {
       res.status(statusCodes.InternalServerError).json({message: error.message})
@@ -77,7 +153,7 @@ function getCookedOrdersHistory(req, res) {
 
 module.exports = {
   getOrdersQueue,
-  saveOrderAcceptor,
+  putCookRequests,
   postCookRequests,
   deleteOrderFromQueue,
   getCookedOrdersHistory

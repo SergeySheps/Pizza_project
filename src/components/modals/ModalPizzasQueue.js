@@ -44,8 +44,10 @@ class ModalPizzasQueue extends Component {
           <Icon name="ordered list" /> Orders queue
         </Modal.Header>
         <Modal.Content scrolling className="modal-window__content">
-          {ordersQueue.length > 0 ? (
-            <QueueOrders queue={ordersQueue} handleClose={this.handleClose}/>
+          {!ordersQueue ? (
+            <Icon name="spinner" loading />
+          ) : ordersQueue.length > 0 ? (
+            <QueueOrders queue={ordersQueue} handleClose={this.handleClose} />
           ) : (
             <h2 className="modal-window__text">No orders</h2>
           )}

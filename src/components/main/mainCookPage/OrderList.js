@@ -10,8 +10,7 @@ class OrderList extends Component {
       saveReadyOrder,
       deleteOrderFromQueue,
       order,
-      email,
-      allActiveOrders
+      email
     } = this.props
 
     saveReadyOrder({
@@ -49,14 +48,12 @@ class OrderList extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const allActiveOrders = state.activeOrders
   const order = ownProps.activeOrder
   const {email} = state.login
 
   return {
     order,
     email,
-    allActiveOrders
   }
 }
 
