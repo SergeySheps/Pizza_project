@@ -21,6 +21,8 @@ export function login(state = initialState, action) {
         isLoggedIn: false,
         hasLoginFailed: true
       }
+    case userTypes.USER_LOGOUT:
+      return {}
     default:
       return state
   }

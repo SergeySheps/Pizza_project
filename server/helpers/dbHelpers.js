@@ -8,11 +8,15 @@ const timeJournalModal = require('../DBmodels/timeJournalModal')
 const readyOrderModel = require('../DBmodels/readyOrderModel')
 
 mongoose.Promise = global.Promise
-// const qwe = mongoose.connect(
-//   config.connectionDBString,
-//   {useNewUrlParser: true}
-// )
-// console.log(qwe)
+
+mongoose.connect(
+  config.connectionDBString,
+  {
+    useNewUrlParser: true,
+    reconnectTries: 10
+  }
+)
+
 module.exports = {
   User: userModel,
   Ingredients: ingredientModel,

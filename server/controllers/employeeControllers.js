@@ -6,7 +6,7 @@ function getOrdersQueue(req, res) {
     queue => {
       queue
         ? res.json(queue)
-        : res.status(statusCodes.BadRequest).json({message: error.message})
+        : res.status(statusCodes.BadRequest).json({})
     },
     error => {
       res.status(statusCodes.InternalServerError).json({message: error.message})
@@ -50,8 +50,8 @@ function postCookRequests(req, res) {
       getStartTime(req, res)
       break
     }
-    case !!req.query.isShowDayReport: {
-      showDayReport(req, res)
+    case !!req.query.isGetDayReport: {
+      getDayReport(req, res)
       break
     }
     default:
@@ -81,8 +81,8 @@ function getOrdersInProgress(req, res) {
   )
 }
 
-function showDayReport(req, res) {
-  employeeServices.showDayReport(req.body).then(
+function getDayReport(req, res) {
+  employeeServices.getDayReport(req.body).then(
     orders => {
       orders ? res.json(orders) : res.status(statusCodes.BadRequest).json({})
     },
@@ -130,7 +130,7 @@ function getStartTime(req, res) {
     time => {
       time
         ? res.json(time)
-        : res.status(statusCodes.BadRequest).json({})
+        : res.json({})
     },
     error => {
       res.status(statusCodes.InternalServerError).json({message: error.message})

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Modal, Icon} from 'semantic-ui-react'
 import QueueItems from '../oredersQueue/QueueItems'
 import {employeeActions} from '../../actions/employeeActions'
+import {sortListByFinishDate} from '../../helpers/dateTimeHelper'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 
@@ -44,7 +45,7 @@ class ModalCookedOrders extends Component {
             {!cookedOrders ? (
               <Icon name="spinner" loading />
             ) : cookedOrders.length > 0 ? (
-              cookedOrders.map(el => (
+              sortListByFinishDate(cookedOrders, false).map(el => (
                 <QueueItems
                   queue={el.order}
                   isCookHistory={true}

@@ -10,6 +10,7 @@ export const employeeService = {
   deleteOrderFromQueue,
   saveStartTime,
   saveFinishTime,
+  getDayReport,
   getStartTime
 }
 
@@ -47,4 +48,8 @@ function saveFinishTime(timeData) {
 
 function getStartTime(email) {
   return api.postRequestWithToken(routs.cook + `?isGetStartWorkTime=true`, {email})
+}
+
+function getDayReport(email) {
+  return api.postRequestWithToken(routs.cook + `?isGetDayReport=true`, {email})
 }

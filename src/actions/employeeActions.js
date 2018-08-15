@@ -11,6 +11,7 @@ export const employeeActions = {
   saveStartTime,
   saveFinishTime,
   getStartTime,
+  getDayReport,
   clear
 }
 
@@ -116,7 +117,16 @@ function saveStartTime(timeData) {
 
 function saveFinishTime(timeData) {
   return dispatch => {
-    employeeService.saveFinishTime(timeData)
+    employeeService.saveFinishTime(timeData).then(time => {
+      dispatch(getStartTimeSuccess(time))
+    })
+  }
+
+  function getStartTimeSuccess(time) {
+    return {
+      type: employeeTypes.TIME_START_SUCCESS,
+      time
+    }
   }
 }
 
@@ -141,7 +151,33 @@ function getStartTime(email) {
 
   function getStartTimeFailure() {
     return {
-      type: employeeTypes.TIME_START_FAILURE,
+      type: employeeTypes.TIME_START_FAILURE
+    }
+  }
+}
+
+function getDayReport(email) {
+  return dispatch => {
+    employeeService.getDayReport(email).then(
+      report => {
+        dispatch(getDayReportSuccess(report))
+      },
+      error => {
+        dispatch(getDayReportFailure())
+      }
+    )
+  }
+
+  function getDayReportSuccess(report) {
+    return {
+      type: employeeTypes.REPORT_GET_SUCCESS,
+      report
+    }
+  }
+
+  function getDayReportFailure() {
+    return {
+      type: employeeTypes.REPORT_GET_FAILURE
     }
   }
 }

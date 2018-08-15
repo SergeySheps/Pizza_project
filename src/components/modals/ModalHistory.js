@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {userActions} from '../../actions/userActions'
 import HistoryItems from '../historyOrder/HistoryItems'
+import {sortListByCreationDate} from '../../helpers/dateTimeHelper'
 
 class ModalHistory extends Component {
   state = {
@@ -17,7 +18,7 @@ class ModalHistory extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const {history,updateOrdersHistory} = this.props
+    const {history, updateOrdersHistory} = this.props
 
     if (prevProps.history.length !== history.length) {
       updateOrdersHistory(history)
@@ -39,7 +40,12 @@ class ModalHistory extends Component {
 
     return (
       <div>
-        <Modal dimmer="blurring" open={this.state.open} onClose={() => this.handleClose()} size="large" closeIcon>
+        <Modal
+          dimmer="blurring"
+          open={this.state.open}
+          onClose={() => this.handleClose()}
+          size="large"
+          closeIcon>
           <Modal.Header>
             <Icon name="clipboard list" /> History
           </Modal.Header>
@@ -47,7 +53,7 @@ class ModalHistory extends Component {
             {!history ? (
               <Icon name="spinner" loading />
             ) : history.length > 0 ? (
-              <HistoryItems history={history} />
+              <HistoryItems history={sortListByCreationDate(history, false)} />
             ) : (
               <h2 className="modal-window__text">History is empty</h2>
             )}
@@ -71,7 +77,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getOrdersHistory: email => dispatch(userActions.getOrdersHistory(email)),
-    updateOrdersHistory: newHistory => dispatch(userActions.updateOrdersHistory(newHistory))
+    updateOrdersHistory: newHistory =>
+      dispatch(userActions.updateOrdersHistory(newHistory))
   }
 }
 

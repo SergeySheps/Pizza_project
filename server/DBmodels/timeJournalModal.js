@@ -2,9 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const TimeJournal = new Schema({
-  startTime: {type: Date, required: true},
-  finishTime: {type: Date, default: Date.now()},
-  todaysDate: {type: Date, default: new Date(Date.now()).toLocaleDateString()},
+  startTime: {type: Date, default: () => new Date()},
+  finishTime: {type: Date, default:() => new Date()},
+  todaysDate: {type: Date, default: () => new Date().toLocaleDateString()},
+  timeSinceStartWork: {type: Number, default: null},
   email: {type: String, required: true}
 })
 

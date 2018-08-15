@@ -1,4 +1,4 @@
-import {employeeTypes} from '../actions/types'
+import {employeeTypes, userTypes} from '../actions/types'
 
 export function ordersQueue(state = '', action) {
   switch (action.type) {
@@ -6,6 +6,8 @@ export function ordersQueue(state = '', action) {
       return action.queue
     case employeeTypes.ORDERS_QUEUE_FAILURE:
       return []
+    case userTypes.USER_LOGOUT:
+      return ''
     default:
       return state
   }

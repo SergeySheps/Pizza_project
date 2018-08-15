@@ -1,4 +1,4 @@
-import {employeeTypes} from '../actions/types'
+import {employeeTypes, userTypes} from '../actions/types'
 
 export function activeOrders(state = '', action) {
   switch (action.type) {
@@ -9,6 +9,8 @@ export function activeOrders(state = '', action) {
     case employeeTypes.ORDERS_ACTIVE_ORDERS_FAILURE:
       return []
     case employeeTypes.ORDERS_ACTIVE_ORDERS_CLEAR:
+      return []
+    case userTypes.USER_LOGOUT:
       return []
     default:
       return state

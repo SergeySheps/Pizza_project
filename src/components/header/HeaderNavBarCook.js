@@ -3,9 +3,7 @@ import {Button, Menu, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {userActions} from '../../actions/userActions'
-import {employeeActions} from '../../actions/employeeActions'
 import '../../styles/menu.css'
-import {pizzaActions} from '../../actions/pizzaActions'
 import ModalPizzasQueue from '../modals/ModalPizzasQueue'
 
 class HeaderNavBarCook extends Component {

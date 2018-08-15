@@ -2,15 +2,10 @@ import React, {Component} from 'react'
 import {Table} from 'semantic-ui-react'
 import QueueOrder from './QueueOrder'
 import {connect} from 'react-redux'
+import {sortListByCreationDate} from '../../helpers/dateTimeHelper'
 import '../../styles/order.css'
 
 class QueueOrders extends Component {
-  sortQueue = queue => {
-    return queue.length > 1
-      ? queue.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate))
-      : queue
-  }
-
   render() {
     const {queue, handleClose} = this.props
 
@@ -24,7 +19,7 @@ class QueueOrders extends Component {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {this.sortQueue(queue).map(item => (
+          {sortListByCreationDate(queue, true).map(item => (
             <QueueOrder {...item} key={item.id} handleClose={handleClose} />
           ))}
         </Table.Body>

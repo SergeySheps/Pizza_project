@@ -11,6 +11,8 @@ export function ordersHistory(state = '', action) {
       return []
     case userTypes.ORDERS_HISTORY_UPDATE:
       return action.newHistory
+    case userTypes.USER_LOGOUT:
+      return []
     default:
       return state
   }

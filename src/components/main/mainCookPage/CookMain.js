@@ -2,19 +2,23 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Button, Icon} from 'semantic-ui-react'
 import {employeeActions} from '../../../actions/employeeActions'
-import {toDateTime, getTimeSinceStart} from '../../../helpers/dateTimeHelper'
-import Timer from './Timer'
+import {timeConstants} from '../../../constants/constants'
+import {
+  toDateTime,
+  getTimeSinceStart,
+  getSecondsFromTime
+} from '../../../helpers/dateTimeHelper'
 import OrderList from './OrderList'
 import '../../../styles/cookMain.css'
-import {
-  setLocalStorageItem,
-  getLocalStorageItem
-} from '../../../helpers/authorizationHelper'
+import ModalDayReport from '../../modals/ModalDayReport'
 
 class CookMain extends Component {
   state = {
     hasStartWork: false,
-    isFinishedWork: false
+    isFinishedWork: false,
+    timer: null,
+    startTime: null,
+    timeSinceStartWork: null
   }
 
   componentWillMount() {
@@ -24,16 +28,39 @@ class CookMain extends Component {
     getStartTime(email)
   }
 
-  handleStartWork = () => {
-    this.setState({
-      hasStartWork: true
-    })
+  componentWillUnmount() {
+    this.stopTimer()
+  }
 
+  stopTimer = () => {
+    const {saveFinishTime, email} = this.props
+    const {timeSinceStartWork, timer} = this.state
+
+    clearInterval(timer)
+
+    if (!timeSinceStartWork) {
+      return
+    }
+
+    saveFinishTime({
+      email,
+      timeSinceStartWork: getSecondsFromTime(getTimeSinceStart(timeSinceStartWork))
+    })
+  }
+
+  handleStartWork = () => {
+    const timer = setInterval(this.tick, 1000)
     const {saveStartTime, email} = this.props
 
+    this.setState({
+      startTime: Date.now(),
+      timer,
+      hasStartWork: true,
+      isFinishedWork: false
+    })
+
     saveStartTime({
-      email,
-      startTime: Date.now()
+      email
     })
   }
 
@@ -42,63 +69,97 @@ class CookMain extends Component {
       hasStartWork: false
     })
 
-    const {saveFinishTime, email, getStartTime} = this.props
-
-    saveFinishTime({
-      email,
-      finishTime: Date.now()
-    })
-    getStartTime(email)
+    this.stopTimer()
   }
 
   handleFinishWork = () => {
     this.setState({
+      hasStartWork: false,
       isFinishedWork: true
+    })
+
+    this.stopTimer()
+  }
+
+  tick = () => {
+    const {timeJournal} = this.props
+
+    this.setState({
+      timeSinceStartWork: toDateTime(
+        Date.now() -
+          this.state.startTime +
+          (timeJournal.timeSinceStartWork
+            ? timeJournal.timeSinceStartWork * timeConstants.millisecInSec
+            : 0)
+      )
     })
   }
 
-  showDayReport = () => {}
+  showDayReport = () => {
+    const {getDayReport, email} = this.props
+
+    getDayReport(email)
+  }
 
   render() {
-    const {hasStartWork, isFinishedWork} = this.state
+    const {hasStartWork, isFinishedWork, timeSinceStartWork} = this.state
     const {orders, timeJournal} = this.props
 
     return (
       <main className="cook__mainPage">
         <div className="manage-panel__content">
           <div className="manage-panel__content-time">
-            <div className="manage-panel__content-container-buttons">
-              <Button fluid={false} primary onClick={this.handleStartWork}>
-                Start work
-              </Button>
-              <Button fluid={false} primary onClick={this.handlePauseWork}>
-                Pause
-              </Button>
-              {isFinishedWork ? (
-                <Button fluid={false} color="green" onClick={this.showDayReport}>
-                  Day report
-                </Button>
-              ) : (
-                <Button fluid={false} primary onClick={this.handleFinishWork}>
-                  Finish work
-                </Button>
-              )}
-            </div>
             <h2 className="timer__work-time">
               Time since start work:{' '}
-              {hasStartWork ? (
-                <Timer parentState={this.state} />
-              ) : timeJournal ? (
-                getTimeSinceStart(
-                  toDateTime(
-                    new Date(timeJournal.finishTime).getTime() -
-                      new Date(timeJournal.startTime).getTime()
-                  )
-                )
-              ) : (
-                '00:00:00'
-              )}
+              <span>
+                {timeSinceStartWork
+                  ? getTimeSinceStart(timeSinceStartWork)
+                  : timeJournal.timeSinceStartWork
+                    ? getTimeSinceStart(
+                        toDateTime(
+                          timeJournal.timeSinceStartWork * timeConstants.millisecInSec
+                        )
+                      )
+                    : '00:00:00'}
+              </span>
             </h2>
+            <div className="manage-panel__content-container-buttons">
+              {isFinishedWork ? (
+                <ModalDayReport />
+              ) : (
+                <React.Fragment>
+                  <Button
+                    fluid={false}
+                    icon
+                    labelPosition="left"
+                    primary
+                    onClick={this.handleStartWork}
+                    disabled={hasStartWork}>
+                    <Icon name="play" />
+                    Start work
+                  </Button>
+                  <Button
+                    fluid={false}
+                    icon
+                    labelPosition="left"
+                    primary
+                    onClick={this.handlePauseWork}
+                    disabled={!hasStartWork}>
+                    <Icon name="pause" />
+                    Pause
+                  </Button>
+                  <Button
+                    fluid={false}
+                    icon
+                    labelPosition="left"
+                    primary
+                    onClick={this.handleFinishWork}>
+                    <Icon name="stop" />
+                    Finish work
+                  </Button>
+                </React.Fragment>
+              )}
+            </div>
           </div>
         </div>
         <div className="orders-in-process">
@@ -119,13 +180,15 @@ class CookMain extends Component {
 
 const mapStateToProps = state => {
   const orders = state.activeOrders
+  const dayReport = state.dayReport
   const timeJournal = state.timeJournal
   const {email} = state.login
 
   return {
     orders,
     email,
-    timeJournal
+    timeJournal,
+    dayReport
   }
 }
 

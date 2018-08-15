@@ -45,18 +45,16 @@ class CookPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {isLoggedIn, hasToken, isEmployee} = state.login
+  const {isLoggedIn, isEmployee} = state.login
   return {
     isLoggedIn,
-    hasToken,
     isEmployee
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    logout: () => dispatch(userActions.logout()),
-    checkExistingToken: () => dispatch(userActions.checkExistingToken())
+    logout: () => dispatch(userActions.logout())
   }
 }
 

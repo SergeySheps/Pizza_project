@@ -19,7 +19,7 @@ const readyOrder = new Schema({
     }
   ],
   cookEmail: {type: String, required: true},
-  finishOrderDate: {type: Date, default: Date.now()}
+  finishOrderDate: {type: Date, default: () => new Date()}
 })
 
 readyOrder.set('toJSON', {virtuals: true})

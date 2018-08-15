@@ -25,11 +25,11 @@ const Order = new Schema({
     }
   ],
   email: {type: String, required: true},
-  creationDate: {type: Date, default: Date.now()},
+  creationDate: {type: Date, default: () => new Date()},
   totalPrice: {type: Number, required: true},
   isCompleted: {type: Boolean, default: false},
   isInProgress: {type: Boolean, default: false},
-  orderAcceptor: {type: String, default: ""},
+  orderAcceptor: {type: String, default: ''}
 })
 
 Order.set('toJSON', {virtuals: true})

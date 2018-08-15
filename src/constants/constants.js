@@ -34,7 +34,13 @@ export const coefficientPrice = 0.5
 export const discountPercent = 10
 export const minDiscountOrderPrice = 50
 export const defaultPagesCount = 3
-export const workTimeFormat = "hh:mm:ss"
+export const workTimeFormat = 'hh:mm:ss'
+export const timeConstants = {
+  millisecInSec: 1000,
+  secInMin: 60,
+  minInHour: 60,
+  secInHour: 3600,
+}
 
 export const pizzaTypeIngredients = {
   meat: 'Meat',
@@ -89,5 +95,5 @@ export const toastrNotificationData = {
   orderSuccess: {
     title: 'Order',
     message: 'Order has been proceeded'
-  },
+  }
 }

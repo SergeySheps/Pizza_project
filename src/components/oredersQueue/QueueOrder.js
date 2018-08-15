@@ -17,7 +17,7 @@ const QueueOrder = props => {
 
   const handleProceedClick = () => {
     saveOrderAcceptor({email, id})
-    getOrdersInProgress(email)
+    setTimeout(() => getOrdersInProgress(email), 1000)
     handleClose()
   }
 

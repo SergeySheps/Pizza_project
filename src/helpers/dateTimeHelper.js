@@ -1,5 +1,5 @@
 import {compose} from 'redux'
-import {workTimeFormat} from '../constants/constants'
+import {workTimeFormat, timeConstants} from '../constants/constants'
 
 const toDateTime = millisecs => {
   let date = new Date(1970, 0, 1)
@@ -33,4 +33,34 @@ const getTimeSinceStart = timeSinceStart => {
   )(workTimeFormat)
 }
 
-export {toDateTime, getTimeSinceStart}
+const getSecondsFromTime = time => {
+  const timeArray = time.split(':')
+  const hours = 0
+  const minutes = 1
+  const seconds = 2
+
+  return (
+    timeArray[hours] * timeConstants.secInHour +
+    timeArray[minutes] * timeConstants.secInMin +
+    timeArray[seconds]
+  )
+}
+const sortListByFinishDate = (list, isByRising = true) => {
+  return isByRising
+    ? list.sort((a, b) => new Date(a.finishOrderDate) - new Date(b.finishOrderDate))
+    : list.sort((a, b) => new Date(b.finishOrderDate) - new Date(a.finishOrderDate))
+}
+
+const sortListByCreationDate = (list, isByRising = true) => {
+  return isByRising
+    ? list.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate))
+    : list.sort((a, b) => new Date(b.creationDate) - new Date(a.creationDate))
+}
+
+export {
+  toDateTime,
+  getTimeSinceStart,
+  getSecondsFromTime,
+  sortListByFinishDate,
+  sortListByCreationDate
+}

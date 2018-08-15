@@ -41,7 +41,8 @@ function login({email, password}) {
 }
 
 function logout() {
-  userService.logout()
+  setTimeout(() => userService.logout(), 2500)
+
   return {
     type: userTypes.USER_LOGOUT
   }
