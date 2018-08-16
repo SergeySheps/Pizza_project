@@ -23,7 +23,6 @@ class ModalBasket extends Component {
     })
 
   render() {
-    // const {basket} = this.props
     const basket = JSON.parse(sessionStorage.getItem("basket"))
     const {opacity} = this.state
 
