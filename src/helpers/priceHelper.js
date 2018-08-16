@@ -1,9 +1,14 @@
-import {coefficientPrice, discountPercent, minDiscountOrderPrice} from '../constants/constants'
+import {
+  coefficientPrice,
+  discountPercent,
+  minDiscountOrderPrice
+} from '../constants/constants'
 
 const refreshAddedIngredients = (addedIngredients, products) =>
   addedIngredients.map(addedIngredient => {
-    const updatedBasePrice = products.find(ingredient => ingredient.name === addedIngredient.name)
-      .price
+    const updatedBasePrice = products.find(
+      ingredient => ingredient.name === addedIngredient.name
+    ).price
 
     return {
       ...addedIngredient,
@@ -44,7 +49,8 @@ const reduceIngredient = (addedIngredients, ingredient) =>
           ? {
               ...ingred,
               amount: ingred.amount > 0 ? ingred.amount - 1 : ingred.amount,
-              price: ingred.basePrice * (ingred.amount > 0 ? ingred.amount - 1 : ingred.amount)
+              price:
+                ingred.basePrice * (ingred.amount > 0 ? ingred.amount - 1 : ingred.amount)
             }
           : ingred
     )
@@ -52,10 +58,9 @@ const reduceIngredient = (addedIngredients, ingredient) =>
 
 const getPriceWithDiscount = price => {
   return Number(
-    String(price >= minDiscountOrderPrice ? price - (discountPercent * price) / 100 : price).slice(
-      0,
-      5
-    )
+    String(
+      price >= minDiscountOrderPrice ? price - (discountPercent * price) / 100 : price
+    ).slice(0, 5)
   )
 }
 

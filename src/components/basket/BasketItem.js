@@ -12,9 +12,10 @@ const BasketItem = props => {
     price,
     ingredients,
     incrementPizzaAmount,
-    basket,
     total
   } = props
+
+  const basket = JSON.parse(sessionStorage.getItem("basket"))
 
   const incrementAmount = () => {
     const updatedBasket = basket.map(el => {

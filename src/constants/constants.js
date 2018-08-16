@@ -34,6 +34,13 @@ export const coefficientPrice = 0.5
 export const discountPercent = 10
 export const minDiscountOrderPrice = 50
 export const defaultPagesCount = 3
+export const workTimeFormat = 'hh:mm:ss'
+export const timeConstants = {
+  millisecInSec: 1000,
+  secInMin: 60,
+  minInHour: 60,
+  secInHour: 3600,
+}
 
 export const pizzaTypeIngredients = {
   meat: 'Meat',
@@ -54,7 +61,9 @@ export const routs = {
   login: `${url}/login`,
   checkEqualEmail: `${url}/registration?isEqual=true`,
   main: `${url}/main`,
-  history: `${url}/main/history`,
+  mainHistory: `${url}/main/history`,
+  cook: `${url}/cook`,
+  cookHistory: `${url}/cook/history`,
   preview: `${url}`
 }
 
@@ -86,5 +95,29 @@ export const toastrNotificationData = {
   orderSuccess: {
     title: 'Order',
     message: 'Order has been proceeded'
+  },
+  orderAcceptSuccess: {
+    title: 'Order',
+    message: 'Order has been accepted'
+  },
+  orderAcceptFailure: {
+    title: 'Order',
+    message: 'Order has not been accepted'
+  },
+  deleteOrderFailure: {
+    title: 'Order',
+    message: 'Order has not been finished, server is not available'
+  },
+  startDayFailure: {
+    title: 'Start workday',
+    message: 'Server is not available, time won\'t be tracked'
+  },
+  saveFinishTimeSuccess: {
+    title: 'Stop workday',
+    message: 'Working time stopped'
+  },
+  saveFinishTimeFailure: {
+    title: 'Stop workday',
+    message: 'Server is not available, time won\'t be stopped'
   },
 }

@@ -16,6 +16,8 @@ export function registration(state = {}, action) {
       }
     case userTypes.REGISTER_CLEAR:
       return {}
+    case userTypes.USER_LOGOUT:
+      return {}
     default:
       return state
   }

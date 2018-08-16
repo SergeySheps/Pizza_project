@@ -19,7 +19,9 @@ class ModalSubmitOrder extends Component {
         ? toastrNotification('success', toastrNotificationData.orderSuccess, {
             position: 'bottom-right'
           })
-        : toastrNotification('error', toastrNotificationData.orderError, {position: 'bottom-right'})
+        : toastrNotification('error', toastrNotificationData.orderError, {
+            position: 'bottom-right'
+          })
     }
   }
 
@@ -53,7 +55,8 @@ class ModalSubmitOrder extends Component {
           </Button>
         }>
         <Modal.Header>
-          <Icon name="car" />Delivery form
+          <Icon name="car" />
+          Delivery form
         </Modal.Header>
         <Modal.Content>
           <OrderForm

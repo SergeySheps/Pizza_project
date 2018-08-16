@@ -10,6 +10,8 @@ export function order(state = {}, action) {
       return {
         hasSuccessOrder: false
       }
+    case userTypes.USER_LOGOUT:
+      return {}
     default:
       return {}
   }
