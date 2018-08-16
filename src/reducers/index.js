@@ -4,12 +4,17 @@ import {reducer as toastrReducer} from 'react-redux-toastr'
 import {login} from './login'
 import {pizza} from './pizza'
 import {basket} from './basket'
+import {cookedOrders} from './cookedOrders'
+import {dayReport} from './dayReport'
 import {order} from './order'
+import {timeJournal} from './timeJournal'
 import {ordersHistory} from './ordersHistory'
+import {ordersQueue} from './ordersQueue'
 import {addedIngredients} from './addedIngredients'
 import {registration} from './registration'
+import {activeOrders} from './activeOrders'
 
-export default combineReducers({
+const rootReducer = combineReducers({
   login,
   addedIngredients,
   registration,
@@ -18,5 +23,12 @@ export default combineReducers({
   basket,
   order,
   ordersHistory,
+  ordersQueue,
+  activeOrders,
+  cookedOrders,
+  timeJournal,
+  dayReport,
   toastr: toastrReducer
 })
+
+export default rootReducer

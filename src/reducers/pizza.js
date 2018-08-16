@@ -1,5 +1,10 @@
-import {pizzaTypes} from '../actions/types'
-import {basePizzaPrice, coefficientPrice, pizzaIndexeSizes, pizzaSizes} from '../constants/constants'
+import {pizzaTypes, userTypes} from '../actions/types'
+import {
+  basePizzaPrice,
+  coefficientPrice,
+  pizzaIndexeSizes,
+  pizzaSizes
+} from '../constants/constants'
 
 export function pizza(state = [], action) {
   switch (action.type) {
@@ -34,6 +39,8 @@ export function pizza(state = [], action) {
         pizzas: [],
         pages: action.pages
       }
+    case userTypes.USER_LOGOUT:
+      return {}
     case pizzaTypes.PIZZA_CLEAR:
       return {}
     default:

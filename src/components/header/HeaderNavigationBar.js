@@ -3,8 +3,6 @@ import {Button, Menu, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {userActions} from '../../actions/userActions'
-import '../../styles/menu.css'
-import {pizzaActions} from '../../actions/pizzaActions'
 import ModalBasket from '../modals/ModalBasket'
 
 class HeaderNavigationBar extends Component {
@@ -65,7 +63,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     logout: () => {
-      dispatch(pizzaActions.clear())
       dispatch(userActions.logout())
     }
   }

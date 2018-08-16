@@ -18,9 +18,9 @@ class MainPage extends Component {
       })
     }
   }
-  
+
   render() {
-    const {isLoggedIn, logout} = this.props
+    const {isLoggedIn, logout, isEmployee} = this.props
 
     if (!isLoggedIn) {
       return <Redirect to="/" />
@@ -31,8 +31,12 @@ class MainPage extends Component {
       return <Redirect to="/login" />
     }
 
+    if (isLoggedIn && isEmployee) {
+      return <Redirect to="/cook" />
+    }
+
     return (
-      <div className="wrapperCheckToken" onClick={this.handleCheckToken}>
+      <div className="check-token-wrapper" onClick={this.handleCheckToken}>
         <Header />
         <Main />
       </div>
@@ -41,17 +45,16 @@ class MainPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {isLoggedIn, hasToken} = state.login
+  const {isLoggedIn, isEmployee} = state.login
   return {
     isLoggedIn,
-    hasToken
+    isEmployee
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    logout: () => dispatch(userActions.logout()),
-    checkExistingToken: () => dispatch(userActions.checkExistingToken())
+    logout: () => dispatch(userActions.logout())
   }
 }
 

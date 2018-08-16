@@ -1,4 +1,4 @@
-import {pizzaTypes} from '../actions/types'
+import {pizzaTypes, userTypes} from '../actions/types'
 
 export function addedIngredients(state = [], action) {
   switch (action.type) {
@@ -14,9 +14,10 @@ export function addedIngredients(state = [], action) {
       ]
     }
     case pizzaTypes.PIZZA_REFRESH_INGREDIENTS: {
-      return action.ingredients 
+      return action.ingredients
     }
     case pizzaTypes.PIZZA_CLEAR:
+    case userTypes.USER_LOGOUT:
       return []
 
     default:

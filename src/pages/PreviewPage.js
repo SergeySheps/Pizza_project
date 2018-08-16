@@ -12,7 +12,7 @@ class Previewpage extends Component {
   handleCheckToken = event => {
     const {isLoggedIn} = this.props
     const {target} = event
-    
+
     if (!isLoggedIn && target.closest('.ui.pagination')) {
       return
     }
@@ -24,7 +24,11 @@ class Previewpage extends Component {
 
   render() {
     const {isRedirect} = this.state
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isEmployee} = this.props
+
+    if (isLoggedIn && isEmployee) {
+      return <Redirect to="/cook" />
+    }
 
     if (isRedirect && !isLoggedIn) {
       return <Redirect to="/login" />
@@ -44,9 +48,11 @@ class Previewpage extends Component {
 }
 
 function mapStateToProps(state) {
-  const {isLoggedIn} = state.login
+  const {isLoggedIn, isEmployee} = state.login
+
   return {
-    isLoggedIn
+    isLoggedIn,
+    isEmployee
   }
 }
 

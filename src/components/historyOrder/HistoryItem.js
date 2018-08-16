@@ -5,9 +5,20 @@ import HistoryPizzasRow from './HistoryPizzasRow'
 import {userActions} from '../../actions/userActions'
 
 const HistoryItem = props => {
-  const {creationDate, pizzaData, userData, totalPrice, submitPizzaOrder,addOrderToHistory} = props
+  const {
+    creationDate,
+    pizzaData,
+    userData,
+    totalPrice,
+    submitPizzaOrder,
+    addOrderToHistory
+  } = props
 
   const handleOrderAgain = () => {
+    if (!window.confirm('Do you really want to repeat the order?')) {
+      return
+    }
+    
     const orderData = {
       userData: props.userData,
       pizzaData: props.pizzaData,
@@ -16,7 +27,7 @@ const HistoryItem = props => {
     }
 
     submitPizzaOrder(orderData)
-    addOrderToHistory(orderData)
+    addOrderToHistory({...orderData, creationDate: new Date().toLocaleString()})
   }
 
   return (
@@ -32,7 +43,11 @@ const HistoryItem = props => {
               <Table.HeaderCell>Total price</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-          <Table.Body>{pizzaData.map((pizza, ind) => <HistoryPizzasRow pizza={pizza} key={ind} />)}</Table.Body>
+          <Table.Body>
+            {pizzaData.map((pizza, ind) => (
+              <HistoryPizzasRow pizza={pizza} key={ind} />
+            ))}
+          </Table.Body>
         </Table>
       </Table.Cell>
       <Table.Cell>
@@ -71,7 +86,7 @@ const HistoryItem = props => {
 function mapDispatchToProps(dispatch) {
   return {
     submitPizzaOrder: values => dispatch(userActions.submitPizzaOrder(values)),
-    addOrderToHistory: values => dispatch(userActions.addOrderToHistory(values)),
+    addOrderToHistory: values => dispatch(userActions.addOrderToHistory(values))
   }
 }
 
