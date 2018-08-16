@@ -129,7 +129,6 @@ class CookMain extends Component {
               ) : (
                 <React.Fragment>
                   <Button
-                    fluid={false}
                     icon
                     labelPosition="left"
                     primary
@@ -139,7 +138,6 @@ class CookMain extends Component {
                     Start work
                   </Button>
                   <Button
-                    fluid={false}
                     icon
                     labelPosition="left"
                     primary
@@ -149,7 +147,6 @@ class CookMain extends Component {
                     Pause
                   </Button>
                   <Button
-                    fluid={false}
                     icon
                     labelPosition="left"
                     primary

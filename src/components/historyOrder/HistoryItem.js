@@ -15,6 +15,10 @@ const HistoryItem = props => {
   } = props
 
   const handleOrderAgain = () => {
+    if (!window.confirm('Do you really want to repeat the order?')) {
+      return
+    }
+    
     const orderData = {
       userData: props.userData,
       pizzaData: props.pizzaData,

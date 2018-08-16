@@ -95,5 +95,29 @@ export const toastrNotificationData = {
   orderSuccess: {
     title: 'Order',
     message: 'Order has been proceeded'
-  }
+  },
+  orderAcceptSuccess: {
+    title: 'Order',
+    message: 'Order has been accepted'
+  },
+  orderAcceptFailure: {
+    title: 'Order',
+    message: 'Order has not been accepted'
+  },
+  deleteOrderFailure: {
+    title: 'Order',
+    message: 'Order has not been finished, server is not available'
+  },
+  startDayFailure: {
+    title: 'Start workday',
+    message: 'Server is not available, time won\'t be tracked'
+  },
+  saveFinishTimeSuccess: {
+    title: 'Stop workday',
+    message: 'Working time stopped'
+  },
+  saveFinishTimeFailure: {
+    title: 'Stop workday',
+    message: 'Server is not available, time won\'t be stopped'
+  },
 }

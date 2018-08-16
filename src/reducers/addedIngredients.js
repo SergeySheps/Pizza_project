@@ -17,7 +17,6 @@ export function addedIngredients(state = [], action) {
       return action.ingredients
     }
     case pizzaTypes.PIZZA_CLEAR:
-      return []
     case userTypes.USER_LOGOUT:
       return []
 

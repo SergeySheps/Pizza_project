@@ -34,7 +34,7 @@ const getTimeSinceStart = timeSinceStart => {
 }
 
 const getSecondsFromTime = time => {
-  const timeArray = time.split(':')
+  const timeArray = time.split(':').map(num => +num)
   const hours = 0
   const minutes = 1
   const seconds = 2
@@ -45,14 +45,14 @@ const getSecondsFromTime = time => {
     timeArray[seconds]
   )
 }
-const sortListByFinishDate = (list, isByRising = true) => {
-  return isByRising
+const sortListByFinishDate = (list, isByAsc = true) => {
+  return isByAsc
     ? list.sort((a, b) => new Date(a.finishOrderDate) - new Date(b.finishOrderDate))
     : list.sort((a, b) => new Date(b.finishOrderDate) - new Date(a.finishOrderDate))
 }
 
-const sortListByCreationDate = (list, isByRising = true) => {
-  return isByRising
+const sortListByCreationDate = (list, isByAsc = true) => {
+  return isByAsc
     ? list.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate))
     : list.sort((a, b) => new Date(b.creationDate) - new Date(a.creationDate))
 }

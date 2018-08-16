@@ -7,10 +7,9 @@ export function ordersHistory(state = '', action) {
     }
     case userTypes.ORDERS_HISTORY_SUCCESS:
       return action.history
-    case userTypes.ORDERS_HISTORY_FAILURE:
-      return []
     case userTypes.ORDERS_HISTORY_UPDATE:
       return action.newHistory
+    case userTypes.ORDERS_HISTORY_FAILURE:
     case userTypes.USER_LOGOUT:
       return []
     default:

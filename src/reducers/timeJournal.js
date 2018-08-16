@@ -5,7 +5,6 @@ export function timeJournal(state = '', action) {
     case employeeTypes.TIME_START_SUCCESS:
       return action.time
     case employeeTypes.TIME_START_FAILURE:
-      return ''
     case userTypes.USER_LOGOUT:
       return ''
     default:

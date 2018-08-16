@@ -46,7 +46,7 @@ async function saveStartTime(timeData) {
   })
 
   if (repeatingQuery.length > 0) {
-    return {}
+    return null
   }
 
   const timeJournal = new TimeJournal(timeData)
@@ -55,6 +55,7 @@ async function saveStartTime(timeData) {
 }
 
 async function saveFinishTime(timeData) {
+
   return await TimeJournal.findOneAndUpdate(
     {
       email: timeData.email,

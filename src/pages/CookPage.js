@@ -46,6 +46,7 @@ class CookPage extends Component {
 
 function mapStateToProps(state) {
   const {isLoggedIn, isEmployee} = state.login
+
   return {
     isLoggedIn,
     isEmployee

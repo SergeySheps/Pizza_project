@@ -7,9 +7,7 @@ export function activeOrders(state = '', action) {
     case employeeTypes.ORDERS_DELETED_ORDER_SUCCESS:
       return state.filter(order => order.id !== action.deletedOrder.id)
     case employeeTypes.ORDERS_ACTIVE_ORDERS_FAILURE:
-      return []
     case employeeTypes.ORDERS_ACTIVE_ORDERS_CLEAR:
-      return []
     case userTypes.USER_LOGOUT:
       return []
     default:

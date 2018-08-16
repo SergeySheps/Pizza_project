@@ -1,5 +1,7 @@
 import {employeeTypes} from './types'
 import {employeeService} from '../services/employeeService'
+import {toastrNotification} from '../helpers/toastrHelper'
+import {toastrNotificationData} from '../constants/constants'
 
 export const employeeActions = {
   getOrdersQueue,
@@ -69,15 +71,33 @@ function getCookedOrdersHistory(email) {
 
 function saveOrderAcceptor(acceptorData) {
   return dispatch => {
-    employeeService.saveOrderAcceptor(acceptorData)
+    employeeService.saveOrderAcceptor(acceptorData).then(
+      resolve => {
+        toastrNotification('success', toastrNotificationData.orderAcceptSuccess, {
+          position: 'bottom-right'
+        })
+      },
+      error => {
+        toastrNotification('error', toastrNotificationData.orderAcceptFailure, {
+          position: 'bottom-right'
+        })
+      }
+    )
   }
 }
 
 function deleteOrderFromQueue(orderData) {
   return dispatch => {
-    employeeService.deleteOrderFromQueue(orderData).then(deletedOrder => {
-      dispatch(deleteOrderFromQueueSuccess(deletedOrder))
-    })
+    employeeService.deleteOrderFromQueue(orderData).then(
+      deletedOrder => {
+        dispatch(deleteOrderFromQueueSuccess(deletedOrder))
+      },
+      error => {
+        toastrNotification('error', toastrNotificationData.deleteOrderFailure, {
+          position: 'bottom-right'
+        })
+      }
+    )
   }
 
   function deleteOrderFromQueueSuccess(deletedOrder) {
@@ -96,9 +116,16 @@ function saveReadyOrder(orderData) {
 
 function getOrdersInProgress(email) {
   return dispatch => {
-    employeeService.getOrdersInProgress(email).then(orders => {
-      dispatch(getOrdersInProgress(orders))
-    })
+    employeeService.getOrdersInProgress(email).then(
+      orders => {
+        dispatch(getOrdersInProgress(orders))
+      },
+      error => {
+        toastrNotification('error', toastrNotificationData.getproductsError, {
+          position: 'bottom-right'
+        })
+      }
+    )
   }
 
   function getOrdersInProgress(orders) {
@@ -111,15 +138,29 @@ function getOrdersInProgress(email) {
 
 function saveStartTime(timeData) {
   return dispatch => {
-    employeeService.saveStartTime(timeData)
+    employeeService.saveStartTime(timeData).then(null, error => {
+      toastrNotification('error', toastrNotificationData.startDayFailure, {
+        position: 'bottom-right'
+      })
+    })
   }
 }
 
 function saveFinishTime(timeData) {
   return dispatch => {
-    employeeService.saveFinishTime(timeData).then(time => {
-      dispatch(getStartTimeSuccess(time))
-    })
+    employeeService.saveFinishTime(timeData).then(
+      time => {
+        dispatch(getStartTimeSuccess(time))
+        toastrNotification('success', toastrNotificationData.saveFinishTimeSuccess, {
+          position: 'bottom-right'
+        })
+      },
+      error => {
+        toastrNotification('error', toastrNotificationData.saveFinishTimeFailure, {
+          position: 'bottom-right'
+        })
+      }
+    )
   }
 
   function getStartTimeSuccess(time) {
@@ -164,6 +205,9 @@ function getDayReport(email) {
       },
       error => {
         dispatch(getDayReportFailure())
+        toastrNotification('error', toastrNotificationData.getproductsError, {
+          position: 'bottom-right'
+        })
       }
     )
   }

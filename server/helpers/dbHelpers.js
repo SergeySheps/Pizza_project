@@ -4,7 +4,7 @@ const userModel = require('../DBmodels/userModel')
 const ingredientModel = require('../DBmodels/ingredientModel')
 const pizzaModel = require('../DBmodels/pizzaModel')
 const orderModel = require('../DBmodels/orderModel')
-const timeJournalModal = require('../DBmodels/timeJournalModal')
+const timeJournalModel = require('../DBmodels/timeJournalModel')
 const readyOrderModel = require('../DBmodels/readyOrderModel')
 
 mongoose.Promise = global.Promise
@@ -23,5 +23,5 @@ module.exports = {
   Pizza: pizzaModel,
   Order: orderModel,
   ReadyOrder: readyOrderModel,
-  TimeJournal: timeJournalModal
+  TimeJournal: timeJournalModel
 }

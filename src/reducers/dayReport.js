@@ -5,7 +5,6 @@ export function dayReport(state = '', action) {
     case employeeTypes.REPORT_GET_SUCCESS:
       return action.report
     case employeeTypes.REPORT_GET_FAILURE:
-      return []
     case userTypes.USER_LOGOUT:
       return []
     default:
