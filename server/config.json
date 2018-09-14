@@ -1,0 +1,4 @@
+﻿{
+  "connectionDBString": "mongodb://localhost:27017/pizza-site",
+  "secretWord": "hello"
+}
