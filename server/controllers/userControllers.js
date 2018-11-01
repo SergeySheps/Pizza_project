@@ -23,16 +23,31 @@ function register(req, res) {
   }
 }
 
-function login(req, res) {
-  userServices.login(req.body).then(
-    user => {
-      user ? res.json(user) : res.status(statusCodes.BadRequest).json({message: 'Incorrect Email or password'})
-    },
-    error => {
-      res.status(statusCodes.InternalServerError).json({message: error.message})
-    }
-  )
+async function login(req, res) {
+  try {
+    const user = await userServices.login(req.body)
+    user
+      ? res.json(user)
+      : res.status(statusCodes.BadRequest).json({message: 'Incorrect Email or password'})
+  } catch (err) {
+    res.status(statusCodes.InternalServerError).json({message: error.message})
+  }
 }
+
+// function login(req, res) {
+//   userServices.login(req.body).then(
+//     user => {
+//       user
+//         ? res.json(user)
+//         : res
+//             .status(statusCodes.BadRequest)
+//             .json({message: 'Incorrect Email or password'})
+//     },
+//     error => {
+//       res.status(statusCodes.InternalServerError).json({message: error.message})
+//     }
+//   )
+// }
 
 function saveOrderData(req, res) {
   userServices.saveOrderData(req.body).then(
@@ -48,7 +63,9 @@ function saveOrderData(req, res) {
 function getOrdersHistory(req, res) {
   userServices.getOrdersHistory(req.body).then(
     history => {
-      history ? res.json(history) : res.status(statusCodes.BadRequest).json({message: error.message})
+      history
+        ? res.json(history)
+        : res.status(statusCodes.BadRequest).json({message: error.message})
     },
     error => {
       res.status(statusCodes.InternalServerError).json({message: error.message})

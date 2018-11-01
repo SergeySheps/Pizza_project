@@ -1,5 +1,6 @@
 import {pizzaTypes} from './types'
 import {pizzaService} from '../services/pizzaService'
+import {createAction} from 'redux-actions'
 
 export const pizzaActions = {
   getProductsFromDB,
@@ -7,7 +8,7 @@ export const pizzaActions = {
   addIngredient,
   refreshIngredients,
   clear,
-  changePatinationPage,
+  changePaginationPage,
   addBasketItem,
   incrementPizzaAmount
 }
@@ -16,7 +17,9 @@ function getProductsFromDB(queryString) {
   return dispatch => {
     pizzaService.getProductsFromDB(queryString).then(
       products => {
-        products.docs ? dispatch(getPizzasSuccess(products)) : dispatch(getProductsSuccess(products))
+        products.docs
+          ? dispatch(getPizzasSuccess(products))
+          : dispatch(getProductsSuccess(products))
       },
       error => {
         dispatch(getProductsFailure())
@@ -45,7 +48,7 @@ function getProductsFromDB(queryString) {
   }
 }
 
-function changePatinationPage(page) {
+function changePaginationPage(page) {
   return {
     type: pizzaTypes.PIZZA_CHANGE_PAGINATION_PAGE,
     page
